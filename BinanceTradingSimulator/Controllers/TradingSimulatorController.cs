@@ -9,7 +9,7 @@ namespace BinanceTradingSimulator.Controllers
     public class TradingSimulatorController : Controller
     {
         public TradingSimulatorModel model;
-        private BinanceAPI binanceAPI = new BinanceAPI();
+        private API.BinanceAPI binanceAPI = new API.BinanceAPI();
 
         public TradingSimulatorController()
         {

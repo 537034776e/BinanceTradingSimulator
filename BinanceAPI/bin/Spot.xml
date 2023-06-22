@@ -1,0 +1,2768 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Spot</name>
+    </assembly>
+    <members>
+        <member name="M:Binance.Spot.BLVT.GetBlvtInfo(System.String)">
+            <summary>
+            Weight(IP): 1.
+            </summary>
+            <param name="tokenName">BTCDOWN, BTCUP.</param>
+            <returns>List of token information.</returns>
+        </member>
+        <member name="M:Binance.Spot.BLVT.SubscribeBlvt(System.String,System.Decimal,System.Nullable{System.Int64})">
+            <summary>
+            Weight(IP): 1.
+            </summary>
+            <param name="tokenName">BTCDOWN, BTCUP.</param>
+            <param name="cost">Spot balance.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Subscription Info.</returns>
+        </member>
+        <member name="M:Binance.Spot.BLVT.QuerySubscriptionRecord(System.String,System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int32},System.Nullable{System.Int64})">
+            <summary>
+            - Only the data of the latest 90 days is available.<para />
+            Weight(IP): 1.
+            </summary>
+            <param name="tokenName">BTCDOWN, BTCUP.</param>
+            <param name="id"></param>
+            <param name="startTime">UTC timestamp in ms.</param>
+            <param name="endTime">UTC timestamp in ms.</param>
+            <param name="limit">Default 500; max 1000.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>List of subscription record.</returns>
+        </member>
+        <member name="M:Binance.Spot.BLVT.RedeemBlvt(System.String,System.Decimal,System.Nullable{System.Int64})">
+            <summary>
+            Weight(IP): 1.
+            </summary>
+            <param name="tokenName">BTCDOWN, BTCUP.</param>
+            <param name="amount"></param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Redemption record.</returns>
+        </member>
+        <member name="M:Binance.Spot.BLVT.QueryRedemptionRecord(System.String,System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int32},System.Nullable{System.Int64})">
+            <summary>
+            - Only the data of the latest 90 days is available.<para />
+            Weight(IP): 1.
+            </summary>
+            <param name="tokenName">BTCDOWN, BTCUP.</param>
+            <param name="id"></param>
+            <param name="startTime">UTC timestamp in ms.</param>
+            <param name="endTime">UTC timestamp in ms.</param>
+            <param name="limit">default 1000, max 1000.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>List of redemption record.</returns>
+        </member>
+        <member name="M:Binance.Spot.BLVT.GetBlvtUserLimitInfo(System.String,System.Nullable{System.Int64})">
+            <summary>
+            Weight(IP): 1.
+            </summary>
+            <param name="tokenName">BTCDOWN, BTCUP.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>List of token limits.</returns>
+        </member>
+        <member name="M:Binance.Spot.BSwap.ListAllSwapPools">
+            <summary>
+            Get metadata about all swap pools.<para />
+            Weight(IP): 1.
+            </summary>
+            <returns>List of Swap Pools.</returns>
+        </member>
+        <member name="M:Binance.Spot.BSwap.GetLiquidityInformationOfAPool(System.Nullable{System.Int64},System.Nullable{System.Int64})">
+            <summary>
+            Get liquidity information and user share of a pool.<para />
+            Weight(IP):.<para />
+            - `1` for one pool;.<para />
+            - `10` when the poolId parameter is omitted;.
+            </summary>
+            <param name="poolId"></param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Pool Liquidation information.</returns>
+        </member>
+        <member name="M:Binance.Spot.BSwap.AddLiquidity(System.Int64,System.String,System.Decimal,System.String,System.Nullable{System.Int64})">
+            <summary>
+            Add liquidity to a pool.<para />
+            Weight(UID): 1000 (Additional: 3 times one second).
+            </summary>
+            <param name="poolId"></param>
+            <param name="asset"></param>
+            <param name="quantity"></param>
+            <param name="type">* `Single` - to add a single token.<para />
+            * `Combination` - to add dual tokens.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Operation Id.</returns>
+        </member>
+        <member name="M:Binance.Spot.BSwap.RemoveLiquidity(System.Int64,Binance.Spot.Models.LiquidityRemovalType,System.Decimal,System.String[],System.Nullable{System.Int64})">
+            <summary>
+            Remove liquidity from a pool, `type` include `SINGLE` and `COMBINATION`, asset is mandatory for single asset removal.<para />
+            Weight(UID): 1000 (Additional: 3 times one second).
+            </summary>
+            <param name="poolId"></param>
+            <param name="type">* `SINGLE` - for single asset removal.<para />
+            * `COMBINATION` - for combination of all coins removal.</param>
+            <param name="shareAmount"></param>
+            <param name="asset">Mandatory for single asset removal.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Operation Id.</returns>
+        </member>
+        <member name="M:Binance.Spot.BSwap.GetLiquidityOperationRecord(System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{Binance.Spot.Models.LiquidityOperation},System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int32},System.Nullable{System.Int64})">
+            <summary>
+            Get liquidity operation (add/remove) records.<para />
+            Weight(UID): 3000.
+            </summary>
+            <param name="operationId"></param>
+            <param name="poolId"></param>
+            <param name="operation"></param>
+            <param name="startTime">UTC timestamp in ms.</param>
+            <param name="endTime">UTC timestamp in ms.</param>
+            <param name="limit">Default 500; max 1000.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Liquidity Operation Record.</returns>
+        </member>
+        <member name="M:Binance.Spot.BSwap.RequestQuote(System.String,System.String,System.Decimal,System.Nullable{System.Int64})">
+            <summary>
+            Request a quote for swap quote asset (selling asset) for base asset (buying asset), essentially price/exchange rates.<para />
+            quoteQty is quantity of quote asset (to sell).<para />
+            Please be noted the quote is for reference only, the actual price will change as the liquidity changes, it's recommended to swap immediate after request a quote for slippage prevention.<para />
+            Weight(UID): 150.
+            </summary>
+            <param name="quoteAsset"></param>
+            <param name="baseAsset"></param>
+            <param name="quoteQty"></param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Quote Info.</returns>
+        </member>
+        <member name="M:Binance.Spot.BSwap.Swap(System.String,System.String,System.Decimal,System.Nullable{System.Int64})">
+            <summary>
+            Swap `quoteAsset` for `baseAsset`.<para />
+            Weight(UID): 1000 (Additional: 3 times one second).
+            </summary>
+            <param name="quoteAsset"></param>
+            <param name="baseAsset"></param>
+            <param name="quoteQty"></param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Swap Id.</returns>
+        </member>
+        <member name="M:Binance.Spot.BSwap.GetSwapHistory(System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{Binance.Spot.Models.SwapStatus},System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int64})">
+            <summary>
+            Get swap history.<para />
+            Weight(UID): 3000.
+            </summary>
+            <param name="swapId"></param>
+            <param name="startTime">UTC timestamp in ms.</param>
+            <param name="endTime">UTC timestamp in ms.</param>
+            <param name="status">* `0` - pending for swap.<para />
+            * `1` - success.<para />
+            * `2` - failed.</param>
+            <param name="quoteAsset"></param>
+            <param name="baseAsset"></param>
+            <param name="limit">default 3, max 100.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Swap History.</returns>
+        </member>
+        <member name="M:Binance.Spot.BSwap.PoolConfigure(System.Nullable{System.Int64},System.Nullable{System.Int64})">
+            <summary>
+            Weight(IP): 150.
+            </summary>
+            <param name="poolId"></param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Pool Information.</returns>
+        </member>
+        <member name="M:Binance.Spot.BSwap.AddLiquidityPreview(System.Int64,System.String,System.String,System.Decimal,System.Nullable{System.Int64})">
+            <summary>
+            Calculate expected share amount for adding liquidity in single or dual token.<para />
+            Weight(IP): 150.
+            </summary>
+            <param name="poolId"></param>
+            <param name="type">* `SINGLE` - for adding a single token.<para />
+            * `COMBINATION` - for adding dual tokens.</param>
+            <param name="quoteAsset"></param>
+            <param name="quoteQty"></param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Add Liquidity Preview.</returns>
+        </member>
+        <member name="M:Binance.Spot.BSwap.RemoveLiquidityPreview(System.Int64,System.String,System.String,System.Decimal,System.Nullable{System.Int64})">
+            <summary>
+            Calculate the expected asset amount of single token redemption or dual token redemption.<para />
+            Weight(IP): 150.
+            </summary>
+            <param name="poolId"></param>
+            <param name="type">* `SINGLE` - remove and obtain a single token.<para />
+            * `COMBINATION` - remove and obtain dual token.</param>
+            <param name="quoteAsset"></param>
+            <param name="shareAmount"></param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Remove Liquidity Preview.</returns>
+        </member>
+        <member name="M:Binance.Spot.BSwap.GetUnclaimedRewardsRecord(System.Nullable{System.Int32},System.Nullable{System.Int64})">
+            <summary>
+            Get unclaimed rewards record.<para />
+             .<para />
+            Weight(UID): 1000.
+            </summary>
+            <param name="type">0: Swap rewards, 1: Liquidity rewards, default to 0.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Unclaimed rewards record.</returns>
+        </member>
+        <member name="M:Binance.Spot.BSwap.ClaimRewards(System.Nullable{System.Int32},System.Nullable{System.Int64})">
+            <summary>
+            Claim swap rewards or liquidity rewards.<para />
+             .<para />
+            Weight(UID): 1000.
+            </summary>
+            <param name="type">0: Swap rewards, 1: Liquidity rewards, default to 0.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Result of claim.</returns>
+        </member>
+        <member name="M:Binance.Spot.BSwap.GetClaimedHistory(System.Nullable{System.Int64},System.String,System.Nullable{System.Int32},System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int32},System.Nullable{System.Int64})">
+            <summary>
+            Get history of claimed rewards.<para />
+             .<para />
+            Weight(UID): 1000.
+            </summary>
+            <param name="poolId"></param>
+            <param name="assetRewards"></param>
+            <param name="type">0: Swap rewards, 1: Liquidity rewards, default to 0.</param>
+            <param name="startTime">UTC timestamp in ms.</param>
+            <param name="endTime">UTC timestamp in ms.</param>
+            <param name="limit">Default 3, max 100.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Claimed History.</returns>
+        </member>
+        <member name="M:Binance.Spot.C2C.GetC2cTradeHistory(Binance.Spot.Models.Side,System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int64})">
+            <summary>
+            - If startTimestamp and endTimestamp are not sent, the recent 30-day data will be returned.<para />
+            - The max interval between startTimestamp and endTimestamp is 30 days.<para />
+            Weight(IP): 1.
+            </summary>
+            <param name="tradeType">BUY, SELL.</param>
+            <param name="startTimestamp">UTC timestamp in ms.</param>
+            <param name="endTimestamp">UTC timestamp in ms.</param>
+            <param name="page">Default 1.</param>
+            <param name="rows">default 100, max 100.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Trades history.</returns>
+        </member>
+        <member name="M:Binance.Spot.Convert.GetConvertTradeHistory(System.Int64,System.Int64,System.Nullable{System.Int32},System.Nullable{System.Int64})">
+            <summary>
+            - The max interval between startTime and endTime is 30 days.<para />
+            Weight(UID): 100.
+            </summary>
+            <param name="startTime">UTC timestamp in ms.</param>
+            <param name="endTime">UTC timestamp in ms.</param>
+            <param name="limit">default 100, max 1000.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Convert Trade History.</returns>
+        </member>
+        <member name="M:Binance.Spot.CryptoLoans.GetCryptoLoansIncomeHistory(System.String,System.String,System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int32},System.Nullable{System.Int64})">
+            <summary>
+            - If startTime and endTime are not sent, the recent 7-day data will be returned.<para />
+            - The max interval between startTime and endTime is 30 days.<para />
+            Weight(UID): 6000.
+            </summary>
+            <param name="asset"></param>
+            <param name="type">All types will be returned by default.<para />
+            * `borrowIn`.<para />
+            * `collateralSpent`.<para />
+            * `repayAmount`.<para />
+            * `collateralReturn` - Collateral return after repayment.<para />
+            * `addCollateral`.<para />
+            * `removeCollateral`.<para />
+            * `collateralReturnAfterLiquidation`.</param>
+            <param name="startTime">UTC timestamp in ms.</param>
+            <param name="endTime">UTC timestamp in ms.</param>
+            <param name="limit">default 20, max 100.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Loan History.</returns>
+        </member>
+        <member name="M:Binance.Spot.Fiat.GetFiatDepositWithdrawHistory(Binance.Spot.Models.FiatOrderTransactionType,System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int64})">
+            <summary>
+            - If beginTime and endTime are not sent, the recent 30-day data will be returned.<para />
+            Weight(IP): 90000.
+            </summary>
+            <param name="transactionType">* `0` - deposit.<para />
+            * `1` - withdraw.</param>
+            <param name="beginTime"></param>
+            <param name="endTime">UTC timestamp in ms.</param>
+            <param name="page">Default 1.</param>
+            <param name="rows">Default 100, max 500.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>History of deposit/withdraw orders.</returns>
+        </member>
+        <member name="M:Binance.Spot.Fiat.GetFiatPaymentsHistory(Binance.Spot.Models.FiatPaymentTransactionType,System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int64})">
+            <summary>
+            - If beginTime and endTime are not sent, the recent 30-day data will be returned.<para />
+            Weight(IP): 1.
+            </summary>
+            <param name="transactionType">* `0` - deposit.<para />
+            * `1` - withdraw.</param>
+            <param name="beginTime"></param>
+            <param name="endTime">UTC timestamp in ms.</param>
+            <param name="page">Default 1.</param>
+            <param name="rows">Default 100, max 500.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>History of fiat payments.</returns>
+        </member>
+        <member name="M:Binance.Spot.Futures.NewFutureAccountTransfer(System.String,System.Decimal,Binance.Spot.Models.FuturesTransferType,System.Nullable{System.Int64})">
+            <summary>
+            Execute transfer between spot account and futures account.<para />
+            Weight(IP): 1.
+            </summary>
+            <param name="asset">The asset being transferred, e.g., USDT.</param>
+            <param name="amount">The amount to be transferred.</param>
+            <param name="type">1: transfer from spot account to USDT-Ⓜ futures account. 2: transfer from USDT-Ⓜ futures account to spot account. 3: transfer from spot account to COIN-Ⓜ futures account. 4: transfer from COIN-Ⓜ futures account to spot account.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Transaction Id..</returns>
+        </member>
+        <member name="M:Binance.Spot.Futures.GetFutureAccountTransactionHistoryList(System.String,System.Int64,System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int64})">
+            <summary>
+            Weight(IP): 10.
+            </summary>
+            <param name="asset"></param>
+            <param name="startTime"></param>
+            <param name="endTime"></param>
+            <param name="current">Currently querying page. Start from 1. Default:1.</param>
+            <param name="size">Default:10 Max:100.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Future Account Transaction History..</returns>
+        </member>
+        <member name="M:Binance.Spot.Futures.BorrowForCrosscollateral(System.String,System.String,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Int64})">
+            <summary>
+            Borrow asset for Cross-Collateral.
+            </summary>
+            <param name="coin"></param>
+            <param name="collateralCoin"></param>
+            <param name="amount"></param>
+            <param name="collateralAmount"></param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Borrow Transaction..</returns>
+        </member>
+        <member name="M:Binance.Spot.Futures.CrosscollateralBorrowHistory(System.String,System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int64})">
+            <summary>
+            Get Cross-Collateral Borrow History.
+            </summary>
+            <param name="coin"></param>
+            <param name="startTime"></param>
+            <param name="endTime"></param>
+            <param name="limit">default 500, max 1000.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Cross-Collateral Borrow History..</returns>
+        </member>
+        <member name="M:Binance.Spot.Futures.RepayForCrosscollateral(System.String,System.String,System.Decimal,System.Nullable{System.Int64})">
+            <summary>
+            Repay Transaction.
+            </summary>
+            <param name="coin"></param>
+            <param name="collateralCoin"></param>
+            <param name="amount"></param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Repay Transaction..</returns>
+        </member>
+        <member name="M:Binance.Spot.Futures.CrosscollateralRepaymentHistory(System.String,System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int64})">
+            <summary>
+            Get Cross-Collateral Repayment History.
+            </summary>
+            <param name="coin"></param>
+            <param name="startTime"></param>
+            <param name="endTime"></param>
+            <param name="limit">default 500, max 1000.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Cross-Collateral Repayment History..</returns>
+        </member>
+        <member name="M:Binance.Spot.Futures.CrosscollateralWallet(System.Nullable{System.Int64})">
+            <summary>
+            Get Cross-Collateral Wallet.
+            </summary>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Cross-Collateral Wallet..</returns>
+        </member>
+        <member name="M:Binance.Spot.Futures.CrosscollateralWalletV2(System.Nullable{System.Int64})">
+            <summary>
+            Get Cross-Collateral Wallet V2.
+            </summary>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Cross-Collateral Wallet..</returns>
+        </member>
+        <member name="M:Binance.Spot.Futures.CrosscollateralInformation(System.String,System.Nullable{System.Int64})">
+            <summary>
+            Get Cross-Collateral Information.
+            </summary>
+            <param name="collateralCoin"></param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Cross-Collateral Information..</returns>
+        </member>
+        <member name="M:Binance.Spot.Futures.CrosscollateralInformationV2(System.String,System.String,System.Nullable{System.Int64})">
+            <summary>
+            Get Cross-Collateral Information V2.
+            </summary>
+            <param name="loanCoin"></param>
+            <param name="collateralCoin"></param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Cross-Collateral Information..</returns>
+        </member>
+        <member name="M:Binance.Spot.Futures.CalculateRateAfterAdjustCrosscollateralLtv(System.String,System.Decimal,Binance.Spot.Models.LoanDirection,System.Nullable{System.Int64})">
+            <summary>
+            Calculate Collateral Rate after adjust Cross-Collateral LTV.
+            </summary>
+            <param name="collateralCoin"></param>
+            <param name="amount"></param>
+            <param name="direction">"ADDITIONAL", "REDUCED".</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Collateral Rate..</returns>
+        </member>
+        <member name="M:Binance.Spot.Futures.CalculateRateAfterAdjustCrosscollateralLtvV2(System.String,System.String,System.Decimal,Binance.Spot.Models.LoanDirection,System.Nullable{System.Int64})">
+            <summary>
+            Calculate Collateral Rate after adjust Cross-Collateral LTV V2.
+            </summary>
+            <param name="loanCoin"></param>
+            <param name="collateralCoin"></param>
+            <param name="amount"></param>
+            <param name="direction">"ADDITIONAL", "REDUCED".</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Collateral Rate..</returns>
+        </member>
+        <member name="M:Binance.Spot.Futures.GetMaxAmountForAdjustCrosscollateralLtv(System.String,System.Nullable{System.Int64})">
+            <summary>
+            Get Max Amount for Adjust Cross-Collateral LTV.
+            </summary>
+            <param name="collateralCoin"></param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Max Amount for Adjust Cross-Collateral LTV..</returns>
+        </member>
+        <member name="M:Binance.Spot.Futures.GetMaxAmountForAdjustCrosscollateralLtvV2(System.String,System.String,System.Nullable{System.Int64})">
+            <summary>
+            Get Max Amount for Adjust Cross-Collateral LTV V2.
+            </summary>
+            <param name="loanCoin"></param>
+            <param name="collateralCoin"></param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Max Amount for Adjust Cross-Collateral LTV..</returns>
+        </member>
+        <member name="M:Binance.Spot.Futures.AdjustCrosscollateralLtv(System.String,System.Decimal,Binance.Spot.Models.LoanDirection,System.Nullable{System.Int64})">
+            <summary>
+            Adjust Cross-Collateral LTV.
+            </summary>
+            <param name="collateralCoin"></param>
+            <param name="amount"></param>
+            <param name="direction">"ADDITIONAL", "REDUCED".</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Adjust Cross-Collateral LTV..</returns>
+        </member>
+        <member name="M:Binance.Spot.Futures.AdjustCrosscollateralLtvV2(System.String,System.String,System.Decimal,Binance.Spot.Models.LoanDirection,System.Nullable{System.Int64})">
+            <summary>
+            Adjust Cross-Collateral LTV V2.
+            </summary>
+            <param name="loanCoin"></param>
+            <param name="collateralCoin"></param>
+            <param name="amount"></param>
+            <param name="direction">"ADDITIONAL", "REDUCED".</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Adjust Cross-Collateral LTV..</returns>
+        </member>
+        <member name="M:Binance.Spot.Futures.AdjustCrosscollateralLtvHistory(System.String,System.String,System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int64})">
+            <summary>
+            Get Adjust Cross-Collateral LTV History.
+            </summary>
+            <param name="loanCoin"></param>
+            <param name="collateralCoin"></param>
+            <param name="startTime"></param>
+            <param name="endTime"></param>
+            <param name="limit">default 500, max 1000.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Adjust Cross-Collateral LTV History..</returns>
+        </member>
+        <member name="M:Binance.Spot.Futures.CrosscollateralLiquidationHistory(System.String,System.String,System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int64})">
+            <summary>
+            Get Cross-Collateral Liquidation History.
+            </summary>
+            <param name="loanCoin"></param>
+            <param name="collateralCoin"></param>
+            <param name="startTime"></param>
+            <param name="endTime"></param>
+            <param name="limit">default 500, max 1000.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Cross-Collateral Liquidation History..</returns>
+        </member>
+        <member name="M:Binance.Spot.Futures.CheckCollateralRepayLimit(System.String,System.String,System.Nullable{System.Int64})">
+            <summary>
+            Check the maximum and minimum limit when repay with collateral.
+            </summary>
+            <param name="coin"></param>
+            <param name="collateralCoin"></param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Collateral Repay Limit..</returns>
+        </member>
+        <member name="M:Binance.Spot.Futures.GetCollateralRepayQuote(System.String,System.String,System.Decimal,System.Nullable{System.Int64})">
+            <summary>
+            Get quote before repay with collateral is mandatory, the quote will be valid within 25 seconds.
+            </summary>
+            <param name="coin"></param>
+            <param name="collateralCoin"></param>
+            <param name="amount">repay amount.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>ollateral Repay Quote.</returns>
+        </member>
+        <member name="M:Binance.Spot.Futures.RepayWithCollateral(System.String,System.Nullable{System.Int64})">
+            <summary>
+            Repay with collateral. Get quote before repay with collateral is mandatory, the quote will be valid within 25 seconds.
+            </summary>
+            <param name="quoteId"></param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Transaction..</returns>
+        </member>
+        <member name="M:Binance.Spot.Futures.CollateralRepaymentResult(System.String,System.Nullable{System.Int64})">
+            <summary>
+            Check collateral repayment result.
+            </summary>
+            <param name="quoteId"></param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Collateral Repayment Result..</returns>
+        </member>
+        <member name="M:Binance.Spot.Futures.CrosscollateralInterestHistory(System.String,System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int64})">
+            <summary>
+            Get Cross-Collateral Interest History.
+            </summary>
+            <param name="collateralCoin"></param>
+            <param name="startTime"></param>
+            <param name="endTime"></param>
+            <param name="current">Currently querying page. Start from 1. Default:1.</param>
+            <param name="limit">Default:500 Max:1000.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Cross-Collateral Interest History..</returns>
+        </member>
+        <member name="M:Binance.Spot.GiftCard.CreateBinanceCode(System.String,System.Double,System.Nullable{System.Int64})">
+            <summary>
+            This API is for creating a Binance Code. To get started with, please make sure:.<para />
+            - You have a Binance account.<para />
+            - You have passed kyc.<para />
+            - You have a sufﬁcient balance in your Binance funding wallet.<para />
+            - You need Enable Withdrawals for the API Key which requests this endpoint.<para />
+            Daily creation volume: 2 BTC / 24H Daily creation times: 200 Codes / 24H.<para />
+            Weight(IP): 1.
+            </summary>
+            <param name="token">The coin type contained in the Binance Code.</param>
+            <param name="amount">The amount of the coin.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Code creation.</returns>
+        </member>
+        <member name="M:Binance.Spot.GiftCard.RedeemBinanceCode(System.String,System.String,System.Nullable{System.Int64})">
+            <summary>
+            This API is for redeeming the Binance Code. Once redeemed, the coins will be deposited in your funding wallet.<para />
+            Please note that if you enter the wrong code 5 times within 24 hours, you will no longer be able to redeem any Binance Code that day.<para />
+            Weight(IP): 1.
+            </summary>
+            <param name="code">Binance Code.</param>
+            <param name="externalUid">Each external unique ID represents a unique user on the partner platform. The function helps you to identify the redemption behavior of different users, such as redemption frequency and amount. It also helps risk and limit control of a single account, such as daily limit on redemption volume, frequency, and incorrect number of entries. This will also prevent a single user account reach the partner's daily redemption limits. We strongly recommend you to use this feature and transfer us the User ID of your users if you have different users redeeming Binance codes on your platform. To protect user data privacy, you may choose to transfer the user id in any desired format (max. 400 characters).</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Redeemed Information.</returns>
+        </member>
+        <member name="M:Binance.Spot.GiftCard.VerifyBinanceCode(System.String,System.Nullable{System.Int64})">
+            <summary>
+            This API is for verifying whether the Binance Code is valid or not by entering Binance Code or reference number.<para />
+            Please note that if you enter the wrong binance code 5 times within an hour, you will no longer be able to verify any binance code for that hour.<para />
+            Weight(IP): 1.
+            </summary>
+            <param name="referenceNo">reference number.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Code Verification.</returns>
+        </member>
+        <member name="M:Binance.Spot.GiftCard.FetchRsaPublicKey(System.Nullable{System.Int64})">
+            <summary>
+            This API is for fetching the RSA Public Key.<para />
+            This RSA Public key will be used to encrypt the card code.<para />
+            Please note that the RSA Public key fetched is valid only for the current day.<para />
+            Weight(IP): 1.
+            </summary>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>RSA Public Key..</returns>
+        </member>
+        <member name="M:Binance.Spot.MarginAccountTrade.CrossMarginAccountTransfer(System.String,System.Decimal,Binance.Spot.Models.MarginTransferType,System.Nullable{System.Int64})">
+            <summary>
+            Execute transfer between spot account and cross margin account.<para />
+            Weight(IP): 600.
+            </summary>
+            <param name="asset"></param>
+            <param name="amount"></param>
+            <param name="type">* `1` - transfer from main account to margin account.<para />
+            * `2` - transfer from margin account to main account.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Transfer Id.</returns>
+        </member>
+        <member name="M:Binance.Spot.MarginAccountTrade.MarginAccountBorrow(System.String,System.Decimal,System.Nullable{System.Boolean},System.String,System.Nullable{System.Int64})">
+            <summary>
+            Apply for a loan.<para />
+            - If "isIsolated" = "TRUE", "symbol" must be sent.<para />
+            - "isIsolated" = "FALSE" for crossed margin loan.<para />
+            Weight(UID): 3000.
+            </summary>
+            <param name="asset"></param>
+            <param name="amount"></param>
+            <param name="isIsolated">* `TRUE` - For isolated margin.<para />
+            * `FALSE` - Default, not for isolated margin.</param>
+            <param name="symbol">Trading symbol, e.g. BNBUSDT.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Transaction id.</returns>
+        </member>
+        <member name="M:Binance.Spot.MarginAccountTrade.MarginAccountRepay(System.String,System.Decimal,System.Nullable{System.Boolean},System.String,System.Nullable{System.Int64})">
+            <summary>
+            Repay loan for margin account.<para />
+            - If "isIsolated" = "TRUE", "symbol" must be sent.<para />
+            - "isIsolated" = "FALSE" for crossed margin repay.<para />
+            Weight(IP): 3000.
+            </summary>
+            <param name="asset"></param>
+            <param name="amount"></param>
+            <param name="isIsolated">* `TRUE` - For isolated margin.<para />
+            * `FALSE` - Default, not for isolated margin.</param>
+            <param name="symbol">Trading symbol, e.g. BNBUSDT.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Transaction id.</returns>
+        </member>
+        <member name="M:Binance.Spot.MarginAccountTrade.QueryMarginAsset(System.String)">
+            <summary>
+            Weight(IP): 10.
+            </summary>
+            <param name="asset"></param>
+            <returns>Asset details.</returns>
+        </member>
+        <member name="M:Binance.Spot.MarginAccountTrade.QueryCrossMarginPair(System.String)">
+            <summary>
+            Weight(IP): 10.
+            </summary>
+            <param name="symbol">Trading symbol, e.g. BNBUSDT.</param>
+            <returns>Margin pair details.</returns>
+        </member>
+        <member name="M:Binance.Spot.MarginAccountTrade.GetAllMarginAssets">
+            <summary>
+            Weight(IP): 1.
+            </summary>
+            <returns>Assets details.</returns>
+        </member>
+        <member name="M:Binance.Spot.MarginAccountTrade.GetAllCrossMarginPairs">
+            <summary>
+            Weight(IP): 1.
+            </summary>
+            <returns>Margin pairs.</returns>
+        </member>
+        <member name="M:Binance.Spot.MarginAccountTrade.QueryMarginPriceindex(System.String)">
+            <summary>
+            Weight(IP): 10.
+            </summary>
+            <param name="symbol">Trading symbol, e.g. BNBUSDT.</param>
+            <returns>Price index.</returns>
+        </member>
+        <member name="M:Binance.Spot.MarginAccountTrade.MarginAccountNewOrder(System.String,Binance.Spot.Models.Side,Binance.Spot.Models.OrderType,System.Nullable{System.Boolean},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.String,System.Nullable{System.Decimal},System.Nullable{Binance.Spot.Models.NewOrderResponseType},System.Nullable{Binance.Spot.Models.SideEffectType},System.Nullable{Binance.Spot.Models.TimeInForce},System.Nullable{System.Int64})">
+            <summary>
+            Post a new order for margin account.<para />
+            Weight(UID): 6.
+            </summary>
+            <param name="symbol">Trading symbol, e.g. BNBUSDT.</param>
+            <param name="side"></param>
+            <param name="type">Order type.</param>
+            <param name="isIsolated">* `TRUE` - For isolated margin.<para />
+            * `FALSE` - Default, not for isolated margin.</param>
+            <param name="quantity"></param>
+            <param name="quoteOrderQty">Quote quantity.</param>
+            <param name="price">Order price.</param>
+            <param name="stopPrice">Used with STOP_LOSS, STOP_LOSS_LIMIT, TAKE_PROFIT, and TAKE_PROFIT_LIMIT orders.</param>
+            <param name="newClientOrderId">Used to uniquely identify this cancel. Automatically generated by default.</param>
+            <param name="icebergQty">Used with LIMIT, STOP_LOSS_LIMIT, and TAKE_PROFIT_LIMIT to create an iceberg order.</param>
+            <param name="newOrderRespType">Set the response JSON.</param>
+            <param name="sideEffectType">Default `NO_SIDE_EFFECT`.</param>
+            <param name="timeInForce">Order time in force.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Margin order info.</returns>
+        </member>
+        <member name="M:Binance.Spot.MarginAccountTrade.MarginAccountCancelOrder(System.String,System.Nullable{System.Boolean},System.Nullable{System.Int64},System.String,System.String,System.Nullable{System.Int64})">
+            <summary>
+            Cancel an active order for margin account.<para />
+            Either `orderId` or `origClientOrderId` must be sent.<para />
+            Weight(IP): 10.
+            </summary>
+            <param name="symbol">Trading symbol, e.g. BNBUSDT.</param>
+            <param name="isIsolated">* `TRUE` - For isolated margin.<para />
+            * `FALSE` - Default, not for isolated margin.</param>
+            <param name="orderId">Order id.</param>
+            <param name="origClientOrderId">Order id from client.</param>
+            <param name="newClientOrderId">Used to uniquely identify this cancel. Automatically generated by default.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Cancelled margin order details.</returns>
+        </member>
+        <member name="M:Binance.Spot.MarginAccountTrade.MarginAccountCancelAllOpenOrdersOnASymbol(System.String,System.Nullable{System.Boolean},System.Nullable{System.Int64})">
+            <summary>
+            - Cancels all active orders on a symbol for margin account.<para />
+            - This includes OCO orders.<para />
+            Weight(IP): 1.
+            </summary>
+            <param name="symbol">Trading symbol, e.g. BNBUSDT.</param>
+            <param name="isIsolated">* `TRUE` - For isolated margin.<para />
+            * `FALSE` - Default, not for isolated margin.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Cancelled margin orders.</returns>
+        </member>
+        <member name="M:Binance.Spot.MarginAccountTrade.GetCrossMarginTransferHistory(System.String,System.Nullable{Binance.Spot.Models.CrossMarginTransferType},System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Boolean},System.Nullable{System.Int64})">
+            <summary>
+            - Response in descending order.<para />
+            - Returns data for last 7 days by default.<para />
+            - Set `archived` to `true` to query data from 6 months ago.<para />
+            Weight(IP): 1.
+            </summary>
+            <param name="asset"></param>
+            <param name="type">Transfer Type.</param>
+            <param name="startTime">UTC timestamp in ms.</param>
+            <param name="endTime">UTC timestamp in ms.</param>
+            <param name="current">Current querying page. Start from 1. Default:1.</param>
+            <param name="size">Default:10 Max:100.</param>
+            <param name="archived">Default: false. Set to true for archived data from 6 months ago.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Margin account transfer history, response in descending order.</returns>
+        </member>
+        <member name="M:Binance.Spot.MarginAccountTrade.QueryLoanRecord(System.String,System.String,System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Boolean},System.Nullable{System.Int64})">
+            <summary>
+            - `txId` or `startTime` must be sent. `txId` takes precedence.<para />
+            - Response in descending order.<para />
+            - If `isolatedSymbol` is not sent, crossed margin data will be returned.<para />
+            - Set `archived` to `true` to query data from 6 months ago.<para />
+            Weight(IP): 10.
+            </summary>
+            <param name="asset"></param>
+            <param name="isolatedSymbol">Isolated symbol.</param>
+            <param name="txId">the tranId in  `POST /sapi/v1/margin/loan`.</param>
+            <param name="startTime">UTC timestamp in ms.</param>
+            <param name="endTime">UTC timestamp in ms.</param>
+            <param name="current">Current querying page. Start from 1. Default:1.</param>
+            <param name="size">Default:10 Max:100.</param>
+            <param name="archived">Default: false. Set to true for archived data from 6 months ago.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Loan records.</returns>
+        </member>
+        <member name="M:Binance.Spot.MarginAccountTrade.QueryRepayRecord(System.String,System.String,System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Boolean},System.Nullable{System.Int64})">
+            <summary>
+            - `txId` or `startTime` must be sent. `txId` takes precedence.<para />
+            - Response in descending order.<para />
+            - If `isolatedSymbol` is not sent, crossed margin data will be returned.<para />
+            - Set `archived` to `true` to query data from 6 months ago.<para />
+            Weight(IP): 10.
+            </summary>
+            <param name="asset"></param>
+            <param name="isolatedSymbol">Isolated symbol.</param>
+            <param name="txId">the tranId in  `POST /sapi/v1/margin/repay`.</param>
+            <param name="startTime">UTC timestamp in ms.</param>
+            <param name="endTime">UTC timestamp in ms.</param>
+            <param name="current">Current querying page. Start from 1. Default:1.</param>
+            <param name="size">Default:10 Max:100.</param>
+            <param name="archived">Default: false. Set to true for archived data from 6 months ago.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Load records.</returns>
+        </member>
+        <member name="M:Binance.Spot.MarginAccountTrade.GetInterestHistory(System.String,System.String,System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Boolean},System.Nullable{System.Int64})">
+            <summary>
+            - Response in descending order.<para />
+            - If `isolatedSymbol` is not sent, crossed margin data will be returned.<para />
+            - Set `archived` to `true` to query data from 6 months ago.<para />
+            - `type` in response has 4 enums:.<para />
+              - `PERIODIC` interest charged per hour.<para />
+              - `ON_BORROW` first interest charged on borrow.<para />
+              - `PERIODIC_CONVERTED` interest charged per hour converted into BNB.<para />
+              - `ON_BORROW_CONVERTED` first interest charged on borrow converted into BNB.<para />
+            Weight(IP): 1.
+            </summary>
+            <param name="asset"></param>
+            <param name="isolatedSymbol">Isolated symbol.</param>
+            <param name="startTime">UTC timestamp in ms.</param>
+            <param name="endTime">UTC timestamp in ms.</param>
+            <param name="current">Current querying page. Start from 1. Default:1.</param>
+            <param name="size">Default:10 Max:100.</param>
+            <param name="archived">Default: false. Set to true for archived data from 6 months ago.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Interest History, response in descending order.</returns>
+        </member>
+        <member name="M:Binance.Spot.MarginAccountTrade.GetForceLiquidationRecord(System.Nullable{System.Int64},System.Nullable{System.Int64},System.String,System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Boolean})">
+            <summary>
+            - Response in descending order.<para />
+            Weight(IP): 1.
+            </summary>
+            <param name="startTime">UTC timestamp in ms.</param>
+            <param name="endTime">UTC timestamp in ms.</param>
+            <param name="isolatedSymbol">Isolated symbol.</param>
+            <param name="current">Current querying page. Start from 1. Default:1.</param>
+            <param name="size">Default:10 Max:100.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <param name="archived"></param>
+            <returns>Force Liquidation History, response in descending order.</returns>
+        </member>
+        <member name="M:Binance.Spot.MarginAccountTrade.QueryCrossMarginAccountDetails(System.Nullable{System.Int64})">
+            <summary>
+            Weight(IP): 10.
+            </summary>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Margin account details.</returns>
+        </member>
+        <member name="M:Binance.Spot.MarginAccountTrade.QueryMarginAccountsOrder(System.String,System.Nullable{System.Boolean},System.Nullable{System.Int64},System.String,System.Nullable{System.Int64})">
+            <summary>
+            - Either `orderId` or `origClientOrderId` must be sent.<para />
+            - For some historical orders `cummulativeQuoteQty` will be &lt; 0, meaning the data is not available at this time.<para />
+            Weight(IP): 10.
+            </summary>
+            <param name="symbol">Trading symbol, e.g. BNBUSDT.</param>
+            <param name="isIsolated">* `TRUE` - For isolated margin.<para />
+            * `FALSE` - Default, not for isolated margin.</param>
+            <param name="orderId">Order id.</param>
+            <param name="origClientOrderId">Order id from client.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Interest History, response in descending order.</returns>
+        </member>
+        <member name="M:Binance.Spot.MarginAccountTrade.QueryMarginAccountsOpenOrders(System.String,System.Nullable{System.Boolean},System.Nullable{System.Int64})">
+            <summary>
+            - If the `symbol` is not sent, orders for all symbols will be returned in an array.<para />
+            - When all symbols are returned, the number of requests counted against the rate limiter is equal to the number of symbols currently trading on the exchange.<para />
+            - If isIsolated ="TRUE", symbol must be sent.<para />
+            Weight(IP): 10.
+            </summary>
+            <param name="symbol">Trading symbol, e.g. BNBUSDT.</param>
+            <param name="isIsolated">* `TRUE` - For isolated margin.<para />
+            * `FALSE` - Default, not for isolated margin.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Margin open orders list.</returns>
+        </member>
+        <member name="M:Binance.Spot.MarginAccountTrade.QueryMarginAccountsAllOrders(System.String,System.Nullable{System.Boolean},System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int32},System.Nullable{System.Int64})">
+            <summary>
+            - If `orderId` is set, it will get orders &gt;= that orderId. Otherwise most recent orders are returned.<para />
+            - For some historical orders `cummulativeQuoteQty` will be &lt; 0, meaning the data is not available at this time.<para />
+            Weight(IP): 200.<para />
+            Request Limit: 60 times/min per IP.
+            </summary>
+            <param name="symbol">Trading symbol, e.g. BNBUSDT.</param>
+            <param name="isIsolated">* `TRUE` - For isolated margin.<para />
+            * `FALSE` - Default, not for isolated margin.</param>
+            <param name="orderId">Order id.</param>
+            <param name="startTime">UTC timestamp in ms.</param>
+            <param name="endTime">UTC timestamp in ms.</param>
+            <param name="limit">Default 500; max 1000.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Margin order list.</returns>
+        </member>
+        <member name="M:Binance.Spot.MarginAccountTrade.MarginAccountNewOco(System.String,Binance.Spot.Models.Side,System.Decimal,System.Decimal,System.Decimal,System.Nullable{System.Boolean},System.String,System.String,System.Nullable{System.Decimal},System.String,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{Binance.Spot.Models.TimeInForce},System.Nullable{Binance.Spot.Models.NewOrderResponseType},System.Nullable{Binance.Spot.Models.SideEffectType},System.Nullable{System.Int64})">
+            <summary>
+            Send in a new OCO for a margin account.<para />
+            - Price Restrictions:.<para />
+              - SELL: Limit Price &gt; Last Price &gt; Stop Price.<para />
+              - BUY: Limit Price &lt; Last Price &lt; Stop Price.<para />
+            - Quantity Restrictions:.<para />
+              - Both legs must have the same quantity.<para />
+              - ICEBERG quantities however do not have to be the same.<para />
+            - Order Rate Limit.<para />
+              - OCO counts as 2 orders against the order rate limit.<para />
+            Weight(UID): 6.
+            </summary>
+            <param name="symbol">Trading symbol, e.g. BNBUSDT.</param>
+            <param name="side"></param>
+            <param name="quantity"></param>
+            <param name="price">Order price.</param>
+            <param name="stopPrice"></param>
+            <param name="isIsolated">* `TRUE` - For isolated margin.<para />
+            * `FALSE` - Default, not for isolated margin.</param>
+            <param name="listClientOrderId">A unique Id for the entire orderList.</param>
+            <param name="limitClientOrderId">A unique Id for the limit order.</param>
+            <param name="limitIcebergQty"></param>
+            <param name="stopClientOrderId">A unique Id for the stop loss/stop loss limit leg.</param>
+            <param name="stopLimitPrice">If provided, stopLimitTimeInForce is required.</param>
+            <param name="stopIcebergQty"></param>
+            <param name="stopLimitTimeInForce"></param>
+            <param name="newOrderRespType">Set the response JSON.</param>
+            <param name="sideEffectType">Default `NO_SIDE_EFFECT`.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>New Margin OCO details.</returns>
+        </member>
+        <member name="M:Binance.Spot.MarginAccountTrade.MarginAccountCancelOco(System.String,System.Nullable{System.Boolean},System.Nullable{System.Int64},System.String,System.String,System.Nullable{System.Int64})">
+            <summary>
+            Cancel an entire Order List for a margin account.<para />
+            - Canceling an individual leg will cancel the entire OCO.<para />
+            - Either `orderListId` or `listClientOrderId` must be provided.<para />
+            Weight(UID): 1.
+            </summary>
+            <param name="symbol">Trading symbol, e.g. BNBUSDT.</param>
+            <param name="isIsolated">* `TRUE` - For isolated margin.<para />
+            * `FALSE` - Default, not for isolated margin.</param>
+            <param name="orderListId">Order list id.</param>
+            <param name="listClientOrderId">A unique Id for the entire orderList.</param>
+            <param name="newClientOrderId">Used to uniquely identify this cancel. Automatically generated by default.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Margin OCO details.</returns>
+        </member>
+        <member name="M:Binance.Spot.MarginAccountTrade.QueryMarginAccountsOco(System.Nullable{System.Boolean},System.String,System.Nullable{System.Int64},System.String,System.Nullable{System.Int64})">
+            <summary>
+            Retrieves a specific OCO based on provided optional parameters.<para />
+            - Either `orderListId` or `origClientOrderId` must be provided.<para />
+            Weight(IP): 10.
+            </summary>
+            <param name="isIsolated">* `TRUE` - For isolated margin.<para />
+            * `FALSE` - Default, not for isolated margin.</param>
+            <param name="symbol">Mandatory for isolated margin, not supported for cross margin.</param>
+            <param name="orderListId">Order list id.</param>
+            <param name="origClientOrderId">Order id from client.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Margin OCO details.</returns>
+        </member>
+        <member name="M:Binance.Spot.MarginAccountTrade.QueryMarginAccountsAllOco(System.Nullable{System.Boolean},System.String,System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int32},System.Nullable{System.Int64})">
+            <summary>
+            Retrieves all OCO for a specific margin account based on provided optional parameters.<para />
+            Weight(IP): 200.
+            </summary>
+            <param name="isIsolated">* `TRUE` - For isolated margin.<para />
+            * `FALSE` - Default, not for isolated margin.</param>
+            <param name="symbol">Mandatory for isolated margin, not supported for cross margin.</param>
+            <param name="fromId">If supplied, neither `startTime` or `endTime` can be provided.</param>
+            <param name="startTime">UTC timestamp in ms.</param>
+            <param name="endTime">UTC timestamp in ms.</param>
+            <param name="limit">Default Value: 500; Max Value: 1000.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>List of Margin OCO orders.</returns>
+        </member>
+        <member name="M:Binance.Spot.MarginAccountTrade.QueryMarginAccountsOpenOco(System.Nullable{System.Boolean},System.String,System.Nullable{System.Int64})">
+            <summary>
+            Weight(IP): 10.
+            </summary>
+            <param name="isIsolated">* `TRUE` - For isolated margin.<para />
+            * `FALSE` - Default, not for isolated margin.</param>
+            <param name="symbol">Mandatory for isolated margin, not supported for cross margin.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>List of Open Margin OCO orders.</returns>
+        </member>
+        <member name="M:Binance.Spot.MarginAccountTrade.QueryMarginAccountsTradeList(System.String,System.Nullable{System.Boolean},System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int32},System.Nullable{System.Int64})">
+            <summary>
+            - If `fromId` is set, it will get orders &gt;= that `fromId`. Otherwise most recent trades are returned.<para />
+            Weight(IP): 10.
+            </summary>
+            <param name="symbol">Trading symbol, e.g. BNBUSDT.</param>
+            <param name="isIsolated">* `TRUE` - For isolated margin.<para />
+            * `FALSE` - Default, not for isolated margin.</param>
+            <param name="startTime">UTC timestamp in ms.</param>
+            <param name="endTime">UTC timestamp in ms.</param>
+            <param name="fromId">Trade id to fetch from. Default gets most recent trades.</param>
+            <param name="limit">Default 500; max 1000.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>List of margin trades.</returns>
+        </member>
+        <member name="M:Binance.Spot.MarginAccountTrade.QueryMaxBorrow(System.String,System.Nullable{System.Boolean},System.Nullable{System.Int64})">
+            <summary>
+            - If `isolatedSymbol` is not sent, crossed margin data will be sent.<para />
+            - `borrowLimit` is also available from https://www.binance.com/en/margin-fee.<para />
+            Weight(IP): 50.
+            </summary>
+            <param name="asset"></param>
+            <param name="isolatedSymbol">Isolated symbol.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Details on max borrow amount.</returns>
+        </member>
+        <member name="M:Binance.Spot.MarginAccountTrade.QueryMaxTransferoutAmount(System.String,System.Nullable{System.Boolean},System.Nullable{System.Int64})">
+            <summary>
+            - If `isolatedSymbol` is not sent, crossed margin data will be sent.<para />
+            Weight(IP): 50.
+            </summary>
+            <param name="asset"></param>
+            <param name="isolatedSymbol">Isolated symbol.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Details on max transferable amount.</returns>
+        </member>
+        <member name="M:Binance.Spot.MarginAccountTrade.IsolatedMarginAccountTransfer(System.String,System.String,Binance.Spot.Models.IsolatedMarginAccountTransferType,Binance.Spot.Models.IsolatedMarginAccountTransferType,System.Decimal,System.Nullable{System.Int64})">
+            <summary>
+            Weight(UID): 600.
+            </summary>
+            <param name="asset"></param>
+            <param name="symbol">Trading symbol, e.g. BNBUSDT.</param>
+            <param name="transFrom"></param>
+            <param name="transTo"></param>
+            <param name="amount"></param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Transaction Id.</returns>
+        </member>
+        <member name="M:Binance.Spot.MarginAccountTrade.GetIsolatedMarginTransferHistory(System.String,System.String,System.Nullable{Binance.Spot.Models.IsolatedMarginAccountTransferType},System.Nullable{Binance.Spot.Models.IsolatedMarginAccountTransferType},System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int64},System.String,System.Nullable{System.Int64})">
+            <summary>
+            Weight(IP): 1.
+            </summary>
+            <param name="symbol">Trading symbol, e.g. BNBUSDT.</param>
+            <param name="asset"></param>
+            <param name="transFrom"></param>
+            <param name="transTo"></param>
+            <param name="startTime">UTC timestamp in ms.</param>
+            <param name="endTime">UTC timestamp in ms.</param>
+            <param name="current">Current querying page. Start from 1. Default:1.</param>
+            <param name="size">Default:10 Max:100.</param>
+            <param name="archived">Default: false. Set to true for archived data from 6 months ago.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Isolated Margin Transfer History.</returns>
+        </member>
+        <member name="M:Binance.Spot.MarginAccountTrade.QueryIsolatedMarginAccountInfo(System.String,System.Nullable{System.Int64})">
+            <summary>
+            - If "symbols" is not sent, all isolated assets will be returned.<para />
+            - If "symbols" is sent, only the isolated assets of the sent symbols will be returned.<para />
+            Weight(IP): 10.
+            </summary>
+            <param name="symbols">Max 5 symbols can be sent; separated by ','.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Isolated Margin Account Info when "symbols" is not sent.</returns>
+        </member>
+        <member name="M:Binance.Spot.MarginAccountTrade.DisableIsolatedMarginAccount(System.String,System.Nullable{System.Int64})">
+            <summary>
+            Disable isolated margin account for a specific symbol. Each trading pair can only be deactivated once every 24 hours .<para />
+            Weight(UID): 300.
+            </summary>
+            <param name="symbol">Trading symbol, e.g. BNBUSDT.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Isolated Margin Account status.</returns>
+        </member>
+        <member name="M:Binance.Spot.MarginAccountTrade.EnableIsolatedMarginAccount(System.String,System.Nullable{System.Int64})">
+            <summary>
+            Enable isolated margin account for a specific symbol.<para />
+            Weight(UID): 300.
+            </summary>
+            <param name="symbol">Trading symbol, e.g. BNBUSDT.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Isolated Margin Account status.</returns>
+        </member>
+        <member name="M:Binance.Spot.MarginAccountTrade.QueryEnabledIsolatedMarginAccountLimit(System.Nullable{System.Int64})">
+            <summary>
+            Query enabled isolated margin account limit.<para />
+            Weight(IP): 1.
+            </summary>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Number of enabled Isolated Margin Account and its limit.</returns>
+        </member>
+        <member name="M:Binance.Spot.MarginAccountTrade.QueryIsolatedMarginSymbol(System.String,System.Nullable{System.Int64})">
+            <summary>
+            Weight(IP): 10.
+            </summary>
+            <param name="symbol">Trading symbol, e.g. BNBUSDT.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Isolated Margin Symbol.</returns>
+        </member>
+        <member name="M:Binance.Spot.MarginAccountTrade.GetAllIsolatedMarginSymbol(System.Nullable{System.Int64})">
+            <summary>
+            Weight(IP): 10.
+            </summary>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>All Isolated Margin Symbols.</returns>
+        </member>
+        <member name="M:Binance.Spot.MarginAccountTrade.ToggleBnbBurnOnSpotTradeAndMarginInterest(System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Int64})">
+            <summary>
+            - "spotBNBBurn" and "interestBNBBurn" should be sent at least one.<para />
+            Weight(IP): 1.
+            </summary>
+            <param name="spotBNBBurn">Determines whether to use BNB to pay for trading fees on SPOT.</param>
+            <param name="interestBNBBurn">Determines whether to use BNB to pay for margin loan's interest.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Status on BNB to pay for trading fees.</returns>
+        </member>
+        <member name="M:Binance.Spot.MarginAccountTrade.GetBnbBurnStatus(System.Nullable{System.Int64})">
+            <summary>
+            Weight(IP): 1.
+            </summary>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Status on BNB to pay for trading fees.</returns>
+        </member>
+        <member name="M:Binance.Spot.MarginAccountTrade.QueryMarginInterestRateHistory(System.String,System.Nullable{System.Int32},System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int64})">
+            <summary>
+            The max interval between startTime and endTime is 30 days.<para />
+            Weight(IP): 1.
+            </summary>
+            <param name="asset"></param>
+            <param name="vipLevel">Defaults to user's vip level.</param>
+            <param name="startTime">UTC timestamp in ms.</param>
+            <param name="endTime">UTC timestamp in ms.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Margin Interest Rate History.</returns>
+        </member>
+        <member name="M:Binance.Spot.MarginAccountTrade.QueryCrossMarginFeeData(System.Nullable{System.Int32},System.String,System.Nullable{System.Int64})">
+            <summary>
+            Get cross margin fee data collection with any vip level or user's current specific data as https://www.binance.com/en/margin-fee.<para />
+            Weight(IP): 1 when coin is specified; 5 when the coin parameter is omitted.
+            </summary>
+            <param name="vipLevel">Defaults to user's vip level.</param>
+            <param name="coin">Coin name.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Cross Margin Fee Data.</returns>
+        </member>
+        <member name="M:Binance.Spot.MarginAccountTrade.QueryIsolatedMarginFeeData(System.Nullable{System.Int32},System.String,System.Nullable{System.Int64})">
+            <summary>
+            Get isolated margin fee data collection with any vip level or user's current specific data as https://www.binance.com/en/margin-fee.<para />
+            Weight(IP): 1 when a single is specified; 10 when the symbol parameter is omitted.
+            </summary>
+            <param name="vipLevel">Defaults to user's vip level.</param>
+            <param name="symbol">Trading symbol, e.g. BNBUSDT.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Isolated Margin Fee Data.</returns>
+        </member>
+        <member name="M:Binance.Spot.MarginAccountTrade.QueryIsolatedMarginTierData(System.String,System.String,System.Nullable{System.Int64})">
+            <summary>
+            Get isolated margin tier data collection with any tier as https://www.binance.com/en/margin-data.<para />
+            Weight(IP): 1.
+            </summary>
+            <param name="symbol">Trading symbol, e.g. BNBUSDT.</param>
+            <param name="tier">All margin tier data will be returned if tier is omitted.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Isolated Margin Tier Data.</returns>
+        </member>
+        <member name="M:Binance.Spot.MarginAccountTrade.QueryCurrentMarginOrderCountUsage(System.String,System.String,System.Nullable{System.Int64})">
+            <summary>
+            Displays the user's current margin order count usage for all intervals.<para />
+            Weight(IP): 20.
+            </summary>
+            <param name="isIsolated">* `TRUE` - For isolated margin.<para />
+            * `FALSE` - Default, not for isolated margin.</param>
+            <param name="symbol">isolated symbol, mandatory for isolated margin.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Usage..</returns>
+        </member>
+        <member name="M:Binance.Spot.MarginAccountTrade.MarginDustlog(System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int64})">
+            <summary>
+            Query the historical information of user's margin account small-value asset conversion BNB.<para />
+            Weight(IP): 1.
+            </summary>
+            <param name="startTime">UTC timestamp in ms.</param>
+            <param name="endTime">UTC timestamp in ms.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Usage..</returns>
+        </member>
+        <member name="M:Binance.Spot.Market.TestConnectivity">
+            <summary>
+            Test connectivity to the Rest API.<para />
+            Weight(IP): 1.
+            </summary>
+            <returns>OK.</returns>
+        </member>
+        <member name="M:Binance.Spot.Market.CheckServerTime">
+            <summary>
+            Test connectivity to the Rest API and get the current server time.<para />
+            Weight(IP): 1.
+            </summary>
+            <returns>Binance server UTC timestamp.</returns>
+        </member>
+        <member name="M:Binance.Spot.Market.ExchangeInformation(System.String,System.String)">
+            <summary>
+            Current exchange trading rules and symbol information.<para />
+            - If any symbol provided in either symbol or symbols do not exist, the endpoint will throw an error.<para />
+            Weight(IP): 10.
+            </summary>
+            <param name="symbol">Trading symbol, e.g. BNBUSDT.</param>
+            <param name="symbols"></param>
+            <returns>Current exchange trading rules and symbol information.</returns>
+        </member>
+        <member name="M:Binance.Spot.Market.OrderBook(System.String,System.Nullable{System.Int32})">
+            <summary>
+            | Limit               | Weight(IP)  |.<para />
+            |---------------------|-------------|.<para />
+            | 1-100               | 1           |.<para />
+            | 101-500             | 5           |.<para />
+            | 501-1000            | 10          |.<para />
+            | 1001-5000           | 50          |.
+            </summary>
+            <param name="symbol">Trading symbol, e.g. BNBUSDT.</param>
+            <param name="limit">If limit > 5000, then the response will truncate to 5000.</param>
+            <returns>Order book.</returns>
+        </member>
+        <member name="M:Binance.Spot.Market.RecentTradesList(System.String,System.Nullable{System.Int32})">
+            <summary>
+            Get recent trades.<para />
+            Weight(IP): 1.
+            </summary>
+            <param name="symbol">Trading symbol, e.g. BNBUSDT.</param>
+            <param name="limit">Default 500; max 1000.</param>
+            <returns>Trade list.</returns>
+        </member>
+        <member name="M:Binance.Spot.Market.OldTradeLookup(System.String,System.Nullable{System.Int32},System.Nullable{System.Int64})">
+            <summary>
+            Get older market trades.<para />
+            Weight(IP): 5.
+            </summary>
+            <param name="symbol">Trading symbol, e.g. BNBUSDT.</param>
+            <param name="limit">Default 500; max 1000.</param>
+            <param name="fromId">Trade id to fetch from. Default gets most recent trades.</param>
+            <returns>Trade list.</returns>
+        </member>
+        <member name="M:Binance.Spot.Market.CompressedAggregateTradesList(System.String,System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int32})">
+            <summary>
+            Get compressed, aggregate trades. Trades that fill at the time, from the same order, with the same price will have the quantity aggregated.<para />
+            - If `startTime` and `endTime` are sent, time between startTime and endTime must be less than 1 hour.<para />
+            - If `fromId`, `startTime`, and `endTime` are not sent, the most recent aggregate trades will be returned.<para />
+            Weight(IP): 1.
+            </summary>
+            <param name="symbol">Trading symbol, e.g. BNBUSDT.</param>
+            <param name="fromId">Trade id to fetch from. Default gets most recent trades.</param>
+            <param name="startTime">UTC timestamp in ms.</param>
+            <param name="endTime">UTC timestamp in ms.</param>
+            <param name="limit">Default 500; max 1000.</param>
+            <returns>Trade list.</returns>
+        </member>
+        <member name="M:Binance.Spot.Market.KlineCandlestickData(System.String,Binance.Spot.Models.Interval,System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int32})">
+            <summary>
+            Kline/candlestick bars for a symbol.<para />
+            Klines are uniquely identified by their open time.<para />
+            - If `startTime` and `endTime` are not sent, the most recent klines are returned.<para />
+            Weight(IP): 1.
+            </summary>
+            <param name="symbol">Trading symbol, e.g. BNBUSDT.</param>
+            <param name="interval">kline intervals.</param>
+            <param name="startTime">UTC timestamp in ms.</param>
+            <param name="endTime">UTC timestamp in ms.</param>
+            <param name="limit">Default 500; max 1000.</param>
+            <returns>Kline data.</returns>
+        </member>
+        <member name="M:Binance.Spot.Market.CurrentAveragePrice(System.String)">
+            <summary>
+            Current average price for a symbol.<para />
+            Weight(IP): 1.
+            </summary>
+            <param name="symbol">Trading symbol, e.g. BNBUSDT.</param>
+            <returns>Average price.</returns>
+        </member>
+        <member name="M:Binance.Spot.Market.TwentyFourHrTickerPriceChangeStatistics(System.String,System.String)">
+            <summary>
+            24 hour rolling window price change statistics. Careful when accessing this with no symbol.<para />
+            - If the symbol is not sent, tickers for all symbols will be returned in an array.<para />
+            Weight(IP):.<para />
+            - `1` for a single symbol;.<para />
+            - `40` when the symbol parameter is omitted;.
+            </summary>
+            <param name="symbol">Trading symbol, e.g. BNBUSDT.</param>
+            <param name="symbols"></param>
+            <returns>24hr ticker.</returns>
+        </member>
+        <member name="M:Binance.Spot.Market.SymbolPriceTicker(System.String,System.String)">
+            <summary>
+            Latest price for a symbol or symbols.<para />
+            - If the symbol is not sent, prices for all symbols will be returned in an array.<para />
+            Weight(IP):.<para />
+            - `1` for a single symbol;.<para />
+            - `2` when the symbol parameter is omitted;.
+            </summary>
+            <param name="symbol">Trading symbol, e.g. BNBUSDT.</param>
+            <param name="symbols"></param>
+            <returns>Price ticker.</returns>
+        </member>
+        <member name="M:Binance.Spot.Market.SymbolOrderBookTicker(System.String,System.String)">
+            <summary>
+            Best price/qty on the order book for a symbol or symbols.<para />
+            - If the symbol is not sent, bookTickers for all symbols will be returned in an array.<para />
+            Weight(IP):.<para />
+            - `1` for a single symbol;.<para />
+            - `2` when the symbol parameter is omitted;.
+            </summary>
+            <param name="symbol">Trading symbol, e.g. BNBUSDT.</param>
+            <param name="symbols"></param>
+            <returns>Order book ticker.</returns>
+        </member>
+        <member name="M:Binance.Spot.Market.RollingWindowPriceChangeStatistics(System.String,System.String,System.String)">
+            <summary>
+            The window used to compute statistics is typically slightly wider than requested windowSize.<para />
+            openTime for /api/v3/ticker always starts on a minute, while the closeTime is the current time of the request. As such, the effective window might be up to 1 minute wider than requested.<para />
+            E.g. If the closeTime is 1641287867099 (January 04, 2022 09:17:47:099 UTC) , and the windowSize is 1d. the openTime will be: 1641201420000 (January 3, 2022, 09:17:00 UTC).<para />
+            Weight(IP): 2 for each requested symbol regardless of windowSize.<para />
+            The weight for this request will cap at 100 once the number of symbols in the request is more than 50.
+            </summary>
+            <param name="symbol">Trading symbol, e.g. BNBUSDT.</param>
+            <param name="symbols">Either symbol or symbols must be provided.<para />
+            Examples of accepted format for the symbols parameter: ["BTCUSDT","BNBUSDT"] or %5B%22BTCUSDT%22,%22BNBUSDT%22%5D.<para />
+            The maximum number of symbols allowed in a request is 100.</param>
+            <param name="windowSize">Defaults to 1d if no parameter provided.<para />
+            Supported windowSize values:.<para />
+            1m,2m....59m for minutes.<para />
+            1h, 2h....23h - for hours.<para />
+            1d...7d - for days.<para />
+            Units cannot be combined (e.g. 1d2h is not allowed).</param>
+            <returns>Rolling price ticker.</returns>
+        </member>
+        <member name="M:Binance.Spot.Mining.AcquiringAlgorithm">
+            <summary>
+            Weight(IP): 1.
+            </summary>
+            <returns>Algorithm information.</returns>
+        </member>
+        <member name="M:Binance.Spot.Mining.AcquiringCoinname">
+            <summary>
+            Weight(IP): 1.
+            </summary>
+            <returns>Coin information.</returns>
+        </member>
+        <member name="M:Binance.Spot.Mining.RequestForDetailMinerList(System.String,System.String,System.String,System.Nullable{System.Int64})">
+            <summary>
+            Weight(IP): 5.
+            </summary>
+            <param name="algo">Algorithm(sha256).</param>
+            <param name="userName">Mining Account.</param>
+            <param name="workerName">Miner’s name.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>List of workers' hashrates'.</returns>
+        </member>
+        <member name="M:Binance.Spot.Mining.RequestForMinerList(System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int64})">
+            <summary>
+            Weight(IP): 5.
+            </summary>
+            <param name="algo">Algorithm(sha256).</param>
+            <param name="userName">Mining Account.</param>
+            <param name="pageIndex">Page number, default is first page, start form 1.</param>
+            <param name="sort">sort sequence（default=0）0 positive sequence, 1 negative sequence.</param>
+            <param name="sortColumn">Sort by( default 1): 1: miner name, 2: real-time computing power, 3: daily average computing power, 4: real-time rejection rate, 5: last submission time.</param>
+            <param name="workerStatus">miners status（default=0）0 all, 1 valid, 2 invalid, 3 failure.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>List of workers.</returns>
+        </member>
+        <member name="M:Binance.Spot.Mining.EarningsList(System.String,System.String,System.String,System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int64})">
+            <summary>
+            Weight(IP): 5.
+            </summary>
+            <param name="algo">Algorithm(sha256).</param>
+            <param name="userName">Mining Account.</param>
+            <param name="coin">Coin name.</param>
+            <param name="startDate">Search date, millisecond timestamp, while empty query all.</param>
+            <param name="endDate">Search date, millisecond timestamp, while empty query all.</param>
+            <param name="pageIndex">Page number, default is first page, start form 1.</param>
+            <param name="pageSize">Number of pages, minimum 10, maximum 200.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>List of earnings.</returns>
+        </member>
+        <member name="M:Binance.Spot.Mining.ExtraBonusList(System.String,System.String,System.String,System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int64})">
+            <summary>
+            Weight(IP): 5.
+            </summary>
+            <param name="algo">Algorithm(sha256).</param>
+            <param name="userName">Mining Account.</param>
+            <param name="coin">Coin name.</param>
+            <param name="startDate">Search date, millisecond timestamp, while empty query all.</param>
+            <param name="endDate">Search date, millisecond timestamp, while empty query all.</param>
+            <param name="pageIndex">Page number, default is first page, start form 1.</param>
+            <param name="pageSize">Number of pages, minimum 10, maximum 200.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>List of extra bonuses.</returns>
+        </member>
+        <member name="M:Binance.Spot.Mining.HashrateResaleList(System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int64})">
+            <summary>
+            Weight(IP): 5.
+            </summary>
+            <param name="pageIndex">Page number, default is first page, start form 1.</param>
+            <param name="pageSize">Number of pages, minimum 10, maximum 200.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>List of hashrate resales.</returns>
+        </member>
+        <member name="M:Binance.Spot.Mining.HashrateResaleDetail(System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int64})">
+            <summary>
+            Weight(IP): 5.
+            </summary>
+            <param name="configId">Mining ID.</param>
+            <param name="userName">Mining Account.</param>
+            <param name="pageIndex">Page number, default is first page, start form 1.</param>
+            <param name="pageSize">Number of pages, minimum 10, maximum 200.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>List of hashrate resale details.</returns>
+        </member>
+        <member name="M:Binance.Spot.Mining.HashrateResaleRequest(System.String,System.String,System.String,System.Int64,System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int64})">
+            <summary>
+            Weight(IP): 5.
+            </summary>
+            <param name="userName">Mining Account.</param>
+            <param name="algo">Algorithm(sha256).</param>
+            <param name="toPoolUser">Mining Account.</param>
+            <param name="hashRate">Resale hashrate h/s must be transferred (BTC is greater than 500000000000 ETH is greater than 500000).</param>
+            <param name="startDate">Search date, millisecond timestamp, while empty query all.</param>
+            <param name="endDate">Search date, millisecond timestamp, while empty query all.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Mining Account Id.</returns>
+        </member>
+        <member name="M:Binance.Spot.Mining.CancelHashrateResaleConfiguration(System.Int32,System.String,System.Nullable{System.Int64})">
+            <summary>
+            Weight(IP): 5.
+            </summary>
+            <param name="configId">Mining ID.</param>
+            <param name="userName">Mining Account.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Success flag.</returns>
+        </member>
+        <member name="M:Binance.Spot.Mining.StatisticList(System.String,System.String,System.Nullable{System.Int64})">
+            <summary>
+            Weight(IP): 5.
+            </summary>
+            <param name="algo">Algorithm(sha256).</param>
+            <param name="userName">Mining Account.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Mining account statistics.</returns>
+        </member>
+        <member name="M:Binance.Spot.Mining.AccountList(System.String,System.String,System.Nullable{System.Int64})">
+            <summary>
+            Weight(IP): 5.
+            </summary>
+            <param name="algo">Algorithm(sha256).</param>
+            <param name="userName">Mining Account.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>List of mining accounts.</returns>
+        </member>
+        <member name="M:Binance.Spot.Mining.MiningAccountEarning(System.String,System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int64})">
+            <summary>
+            Weight(IP): 5.
+            </summary>
+            <param name="algo">Algorithm(sha256).</param>
+            <param name="startDate">Search date, millisecond timestamp, while empty query all.</param>
+            <param name="endDate">Search date, millisecond timestamp, while empty query all.</param>
+            <param name="pageIndex">Page number, default is first page, start form 1.</param>
+            <param name="pageSize">Number of pages, minimum 10, maximum 200.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Mining account earnings.</returns>
+        </member>
+        <member name="M:Binance.Spot.NFT.GetNftTransactionHistory(System.Int32,System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int64})">
+            <summary>
+            - The max interval between startTime and endTime is 90 days.<para />
+            - If startTime and endTime are not sent, the recent 7 days' data will be returned.<para />
+            Weight(UID): 3000.
+            </summary>
+            <param name="orderType">0: purchase order, 1: sell order, 2: royalty income, 3: primary market order, 4: mint fee.</param>
+            <param name="startTime">UTC timestamp in ms.</param>
+            <param name="endTime">UTC timestamp in ms.</param>
+            <param name="limit">Default 50, Max 50.</param>
+            <param name="page">Default 1.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>NFT Transaction History.</returns>
+        </member>
+        <member name="M:Binance.Spot.NFT.GetNftDepositHistory(System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int64})">
+            <summary>
+            - The max interval between startTime and endTime is 90 days.<para />
+            - If startTime and endTime are not sent, the recent 7 days' data will be returned.<para />
+            Weight(UID): 3000.
+            </summary>
+            <param name="startTime">UTC timestamp in ms.</param>
+            <param name="endTime">UTC timestamp in ms.</param>
+            <param name="limit">Default 50, Max 50.</param>
+            <param name="page">Default 1.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>NFT Deposit History.</returns>
+        </member>
+        <member name="M:Binance.Spot.NFT.GetNftWithdrawHistory(System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int64})">
+            <summary>
+            - The max interval between startTime and endTime is 90 days.<para />
+            - If startTime and endTime are not sent, the recent 7 days' data will be returned.<para />
+            Weight(UID): 3000.
+            </summary>
+            <param name="startTime">UTC timestamp in ms.</param>
+            <param name="endTime">UTC timestamp in ms.</param>
+            <param name="limit">Default 50, Max 50.</param>
+            <param name="page">Default 1.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>NFT Withdraw History.</returns>
+        </member>
+        <member name="M:Binance.Spot.NFT.GetNftAsset(System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int64})">
+            <summary>
+            Weight(UID): 3000.
+            </summary>
+            <param name="limit">Default 50, Max 50.</param>
+            <param name="page">Default 1.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Asset Information.</returns>
+        </member>
+        <member name="M:Binance.Spot.Pay.GetPayTradeHistory(System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int32},System.Nullable{System.Int64})">
+            <summary>
+            - If startTimestamp and endTimestamp are not sent, the recent 90 days' data will be returned.<para />
+            - The max interval between startTimestamp and endTimestamp is 90 days.<para />
+            - Support for querying orders within the last 18 months.<para />
+            Weight(UID): 3000.
+            </summary>
+            <param name="startTimestamp">UTC timestamp in ms.</param>
+            <param name="endTimestamp">UTC timestamp in ms.</param>
+            <param name="limit">default 100, max 100.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Pay History.</returns>
+        </member>
+        <member name="M:Binance.Spot.PortfolioMargin.GetPortfolioMarginAccountInfo(System.Nullable{System.Int64})">
+            <summary>
+            Weight(IP): 1.
+            </summary>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Portfolio account..</returns>
+        </member>
+        <member name="M:Binance.Spot.PortfolioMargin.PortfolioMarginCollateralRate">
+            <summary>
+            Portfolio Margin Collateral Rate.<para />
+            Weight(IP): 50.
+            </summary>
+            <returns>Portfolio Margin Collateral Rate..</returns>
+        </member>
+        <member name="M:Binance.Spot.PortfolioMargin.QueryPortfolioMarginBankruptcyLoanAmount(System.Nullable{System.Int64})">
+            <summary>
+            Query Portfolio Margin Bankruptcy Loan Amount.<para />
+            Weight(UID): 500.
+            </summary>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Portfolio Margin Bankruptcy Loan Amount..</returns>
+        </member>
+        <member name="M:Binance.Spot.PortfolioMargin.PortfolioMarginBankruptcyLoanRepay(System.Nullable{System.Int64})">
+            <summary>
+            Repay Portfolio Margin Bankruptcy Loan.<para />
+            Weight(UID): 3000.
+            </summary>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Transaction..</returns>
+        </member>
+        <member name="M:Binance.Spot.Rebate.GetSpotRebateHistoryRecords(System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int32},System.Nullable{System.Int64})">
+            <summary>
+            - The max interval between startTime and endTime is 90 days.<para />
+            - If startTime and endTime are not sent, the recent 7 days' data will be returned.<para />
+            - The earliest startTime is supported on June 10, 2020.<para />
+            Weight(UID): 3000.
+            </summary>
+            <param name="startTime">UTC timestamp in ms.</param>
+            <param name="endTime">UTC timestamp in ms.</param>
+            <param name="page">default 1.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Rebate History.</returns>
+        </member>
+        <member name="M:Binance.Spot.Savings.GetFlexibleProductList(System.Nullable{Binance.Spot.Models.ProductStatus},System.Nullable{Binance.Spot.Models.ProductFeatured},System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int64})">
+            <summary>
+            Weight(IP): 1.
+            </summary>
+            <param name="status">Default `ALL`.</param>
+            <param name="featured">Default `ALL`.</param>
+            <param name="current">Current querying page. Start from 1. Default:1.</param>
+            <param name="size">Default:10 Max:100.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>List of flexible products.</returns>
+        </member>
+        <member name="M:Binance.Spot.Savings.GetLeftDailyPurchaseQuotaOfFlexibleProduct(System.String,System.Nullable{System.Int64})">
+            <summary>
+            Weight(IP): 1.
+            </summary>
+            <param name="productId"></param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Daily purchase quote of flexible product left.</returns>
+        </member>
+        <member name="M:Binance.Spot.Savings.PurchaseFlexibleProduct(System.String,System.Decimal,System.Nullable{System.Int64})">
+            <summary>
+            Weight(IP): 1.
+            </summary>
+            <param name="productId"></param>
+            <param name="amount"></param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Generated Purchase Id.</returns>
+        </member>
+        <member name="M:Binance.Spot.Savings.GetLeftDailyRedemptionQuotaOfFlexibleProduct(System.String,Binance.Spot.Models.RedemptionType,System.Nullable{System.Int64})">
+            <summary>
+            Weight(IP): 1.
+            </summary>
+            <param name="productId"></param>
+            <param name="type">"FAST", "NORMAL".</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Daily redemption quota of flexible product left.</returns>
+        </member>
+        <member name="M:Binance.Spot.Savings.RedeemFlexibleProduct(System.String,System.Decimal,Binance.Spot.Models.RedemptionType,System.Nullable{System.Int64})">
+            <summary>
+            Weight(IP): 1.
+            </summary>
+            <param name="productId"></param>
+            <param name="amount"></param>
+            <param name="type">"FAST", "NORMAL".</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>OK.</returns>
+        </member>
+        <member name="M:Binance.Spot.Savings.GetFlexibleProductPosition(System.String,System.Nullable{System.Int64})">
+            <summary>
+            Weight(IP): 1.
+            </summary>
+            <param name="asset"></param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>List of flexible product positions.</returns>
+        </member>
+        <member name="M:Binance.Spot.Savings.GetFixedAndActivityProjectList(Binance.Spot.Models.FixedAndActivityProjectType,System.String,System.Nullable{Binance.Spot.Models.ProductStatus},System.Nullable{System.Boolean},System.Nullable{Binance.Spot.Models.SortBy},System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int64})">
+            <summary>
+            Weight(IP): 1.
+            </summary>
+            <param name="type">"ACTIVITY", "CUSTOMIZED_FIXED".</param>
+            <param name="asset"></param>
+            <param name="status">Default `ALL`.</param>
+            <param name="isSortAsc">default "true".</param>
+            <param name="sortBy">Default `START_TIME`.</param>
+            <param name="current">Current querying page. Start from 1. Default:1.</param>
+            <param name="size">Default:10 Max:100.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>List of fixed projects.</returns>
+        </member>
+        <member name="M:Binance.Spot.Savings.PurchaseFixedActivityProject(System.String,System.Int64,System.Nullable{System.Int64})">
+            <summary>
+            Weight(IP): 1.
+            </summary>
+            <param name="projectId"></param>
+            <param name="lot"></param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Generated Purchase Id.</returns>
+        </member>
+        <member name="M:Binance.Spot.Savings.GetFixedActivityProjectPosition(System.String,System.String,System.Nullable{Binance.Spot.Models.PositionStatus},System.Nullable{System.Int64})">
+            <summary>
+            Weight(IP): 1.
+            </summary>
+            <param name="asset"></param>
+            <param name="projectId"></param>
+            <param name="status">Default `ALL`.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>List of fixed project positions.</returns>
+        </member>
+        <member name="M:Binance.Spot.Savings.LendingAccount(System.Nullable{System.Int64})">
+            <summary>
+            Weight(IP): 1.
+            </summary>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Lending account.</returns>
+        </member>
+        <member name="M:Binance.Spot.Savings.GetPurchaseRecord(Binance.Spot.Models.LendingType,System.String,System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int64})">
+            <summary>
+            - The time between startTime and endTime cannot be longer than 30 days.<para />
+            - If startTime and endTime are both not sent, then the last 30 days' data will be returned.<para />
+            Weigh(IP): 1.
+            </summary>
+            <param name="lendingType">* `DAILY` - for flexible.<para />
+            * `ACTIVITY` - for activity.<para />
+            * `CUSTOMIZED_FIXED` for fixed.</param>
+            <param name="asset"></param>
+            <param name="startTime">UTC timestamp in ms.</param>
+            <param name="endTime">UTC timestamp in ms.</param>
+            <param name="current">Current querying page. Start from 1. Default:1.</param>
+            <param name="size">Default:10 Max:100.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>List of flexible or Fixed/Activity products.</returns>
+        </member>
+        <member name="M:Binance.Spot.Savings.GetRedemptionRecord(Binance.Spot.Models.LendingType,System.String,System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int64})">
+            <summary>
+            - The time between startTime and endTime cannot be longer than 30 days.<para />
+            - If startTime and endTime are both not sent, then the last 30 days' data will be returned.<para />
+            Weight(IP): 1.
+            </summary>
+            <param name="lendingType">* `DAILY` - for flexible.<para />
+            * `ACTIVITY` - for activity.<para />
+            * `CUSTOMIZED_FIXED` for fixed.</param>
+            <param name="asset"></param>
+            <param name="startTime">UTC timestamp in ms.</param>
+            <param name="endTime">UTC timestamp in ms.</param>
+            <param name="current">Current querying page. Start from 1. Default:1.</param>
+            <param name="size">Default:10 Max:100.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>History of Flexible or Fixed/Activity Redemptions.</returns>
+        </member>
+        <member name="M:Binance.Spot.Savings.GetInterestHistory(Binance.Spot.Models.LendingType,System.String,System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int64})">
+            <summary>
+            - The time between startTime and endTime cannot be longer than 30 days.<para />
+            - If startTime and endTime are both not sent, then the last 30 days' data will be returned.<para />
+            Weight(IP): 1.
+            </summary>
+            <param name="lendingType">* `DAILY` - for flexible.<para />
+            * `ACTIVITY` - for activity.<para />
+            * `CUSTOMIZED_FIXED` for fixed.</param>
+            <param name="asset"></param>
+            <param name="startTime">UTC timestamp in ms.</param>
+            <param name="endTime">UTC timestamp in ms.</param>
+            <param name="current">Current querying page. Start from 1. Default:1.</param>
+            <param name="size">Default:10 Max:100.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>History of interest.</returns>
+        </member>
+        <member name="M:Binance.Spot.Savings.ChangeFixedActivityPositionToDailyPosition(System.String,System.Int64,System.Nullable{System.Int64},System.Nullable{System.Int64})">
+            <summary>
+            - PositionId is mandatory parameter for fixed position.<para />
+            Weight(IP): 1.
+            </summary>
+            <param name="projectId"></param>
+            <param name="lot"></param>
+            <param name="positionId"></param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Purchase information.</returns>
+        </member>
+        <member name="M:Binance.Spot.SpotAccountTrade.TestNewOrder(System.String,Binance.Spot.Models.Side,Binance.Spot.Models.OrderType,System.Nullable{Binance.Spot.Models.TimeInForce},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{Binance.Spot.Models.NewOrderResponseType},System.Nullable{System.Int64})">
+            <summary>
+            Test new order creation and signature/recvWindow long.<para />
+            Creates and validates a new order but does not send it into the matching engine.<para />
+            Weight(IP): 1.
+            </summary>
+            <param name="symbol">Trading symbol, e.g. BNBUSDT.</param>
+            <param name="side"></param>
+            <param name="type">Order type.</param>
+            <param name="timeInForce">Order time in force.</param>
+            <param name="quantity">Order quantity.</param>
+            <param name="quoteOrderQty">Quote quantity.</param>
+            <param name="price">Order price.</param>
+            <param name="newClientOrderId">Used to uniquely identify this cancel. Automatically generated by default.</param>
+            <param name="strategyId">Identify an order as part of a strategy.</param>
+            <param name="strategyType">The value cannot be less than 1000000.</param>
+            <param name="stopPrice">Used with STOP_LOSS, STOP_LOSS_LIMIT, TAKE_PROFIT, and TAKE_PROFIT_LIMIT orders.</param>
+            <param name="trailingDelta">Used with STOP_LOSS, STOP_LOSS_LIMIT, TAKE_PROFIT, and TAKE_PROFIT_LIMIT orders.</param>
+            <param name="icebergQty">Used with LIMIT, STOP_LOSS_LIMIT, and TAKE_PROFIT_LIMIT to create an iceberg order.</param>
+            <param name="newOrderRespType">Set the response JSON. MARKET and LIMIT order types default to FULL, all other orders default to ACK.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>OK.</returns>
+        </member>
+        <member name="M:Binance.Spot.SpotAccountTrade.NewOrder(System.String,Binance.Spot.Models.Side,Binance.Spot.Models.OrderType,System.Nullable{Binance.Spot.Models.TimeInForce},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{Binance.Spot.Models.NewOrderResponseType},System.Nullable{System.Int64})">
+            <summary>
+            Send in a new order.<para />
+            - `LIMIT_MAKER` are `LIMIT` orders that will be rejected if they would immediately match and trade as a taker.<para />
+            - `STOP_LOSS` and `TAKE_PROFIT` will execute a `MARKET` order when the `stopPrice` is reached.<para />
+            - Any `LIMIT` or `LIMIT_MAKER` type order can be made an iceberg order by sending an `icebergQty`.<para />
+            - Any order with an `icebergQty` MUST have `timeInForce` set to `GTC`.<para />
+            - `MARKET` orders using `quantity` specifies how much a user wants to buy or sell based on the market price.<para />
+            - `MARKET` orders using `quoteOrderQty` specifies the amount the user wants to spend (when buying) or receive (when selling) of the quote asset; the correct quantity will be determined based on the market liquidity and `quoteOrderQty`.<para />
+            - `MARKET` orders using `quoteOrderQty` will not break `LOT_SIZE` filter rules; the order will execute a quantity that will have the notional value as close as possible to `quoteOrderQty`.<para />
+            - same `newClientOrderId` can be accepted only when the previous one is filled, otherwise the order will be rejected.<para />
+            Trigger order price rules against market price for both `MARKET` and `LIMIT` versions:.<para />
+            - Price above market price: `STOP_LOSS` `BUY`, `TAKE_PROFIT` `SELL`.<para />
+            - Price below market price: `STOP_LOSS` `SELL`, `TAKE_PROFIT` `BUY`.<para />
+            Weight(IP): 1.
+            </summary>
+            <param name="symbol">Trading symbol, e.g. BNBUSDT.</param>
+            <param name="side"></param>
+            <param name="type">Order type.</param>
+            <param name="timeInForce">Order time in force.</param>
+            <param name="quantity">Order quantity.</param>
+            <param name="quoteOrderQty">Quote quantity.</param>
+            <param name="price">Order price.</param>
+            <param name="newClientOrderId">Used to uniquely identify this cancel. Automatically generated by default.</param>
+            <param name="strategyId">Identify an order as part of a strategy.</param>
+            <param name="strategyType">The value cannot be less than 1000000.</param>
+            <param name="stopPrice">Used with STOP_LOSS, STOP_LOSS_LIMIT, TAKE_PROFIT, and TAKE_PROFIT_LIMIT orders.</param>
+            <param name="trailingDelta">Used with STOP_LOSS, STOP_LOSS_LIMIT, TAKE_PROFIT, and TAKE_PROFIT_LIMIT orders.</param>
+            <param name="icebergQty">Used with LIMIT, STOP_LOSS_LIMIT, and TAKE_PROFIT_LIMIT to create an iceberg order.</param>
+            <param name="newOrderRespType">Set the response JSON. MARKET and LIMIT order types default to FULL, all other orders default to ACK.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Order result.</returns>
+        </member>
+        <member name="M:Binance.Spot.SpotAccountTrade.CancelOrder(System.String,System.Nullable{System.Int64},System.String,System.String,System.Nullable{System.Int64})">
+            <summary>
+            Cancel an active order.<para />
+            Either `orderId` or `origClientOrderId` must be sent.<para />
+            Weight(IP): 1.
+            </summary>
+            <param name="symbol">Trading symbol, e.g. BNBUSDT.</param>
+            <param name="orderId">Order id.</param>
+            <param name="origClientOrderId">Order id from client.</param>
+            <param name="newClientOrderId">Used to uniquely identify this cancel. Automatically generated by default.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Cancelled order.</returns>
+        </member>
+        <member name="M:Binance.Spot.SpotAccountTrade.CancelAllOpenOrdersOnASymbol(System.String,System.Nullable{System.Int64})">
+            <summary>
+            Cancels all active orders on a symbol.<para />
+            This includes OCO orders.<para />
+            Weight(IP): 1.
+            </summary>
+            <param name="symbol">Trading symbol, e.g. BNBUSDT.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Cancelled orders.</returns>
+        </member>
+        <member name="M:Binance.Spot.SpotAccountTrade.QueryOrder(System.String,System.Nullable{System.Int64},System.String,System.Nullable{System.Int64})">
+            <summary>
+            Check an order's status.<para />
+            - Either `orderId` or `origClientOrderId` must be sent.<para />
+            - For some historical orders `cummulativeQuoteQty` will be &lt; 0, meaning the data is not available at this time.<para />
+            Weight(IP): 2.
+            </summary>
+            <param name="symbol">Trading symbol, e.g. BNBUSDT.</param>
+            <param name="orderId">Order id.</param>
+            <param name="origClientOrderId">Order id from client.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Order details.</returns>
+        </member>
+        <member name="M:Binance.Spot.SpotAccountTrade.CurrentOpenOrders(System.String,System.Nullable{System.Int64})">
+            <summary>
+            Get all open orders on a symbol. Careful when accessing this with no symbol.<para />
+            Weight(IP):.<para />
+            - `3` for a single symbol;.<para />
+            - `40` when the symbol parameter is omitted;.
+            </summary>
+            <param name="symbol">Trading symbol, e.g. BNBUSDT.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Current open orders.</returns>
+        </member>
+        <member name="M:Binance.Spot.SpotAccountTrade.AllOrders(System.String,System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int32},System.Nullable{System.Int64})">
+            <summary>
+            Get all account orders; active, canceled, or filled..<para />
+            - If `orderId` is set, it will get orders &gt;= that `orderId`. Otherwise most recent orders are returned.<para />
+            - For some historical orders `cummulativeQuoteQty` will be &lt; 0, meaning the data is not available at this time.<para />
+            - If `startTime` and/or `endTime` provided, `orderId` is not required.<para />
+            Weight(IP): 10.
+            </summary>
+            <param name="symbol">Trading symbol, e.g. BNBUSDT.</param>
+            <param name="orderId">Order id.</param>
+            <param name="startTime">UTC timestamp in ms.</param>
+            <param name="endTime">UTC timestamp in ms.</param>
+            <param name="limit">Default 500; max 1000.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Current open orders.</returns>
+        </member>
+        <member name="M:Binance.Spot.SpotAccountTrade.NewOco(System.String,Binance.Spot.Models.Side,System.Decimal,System.Decimal,System.Decimal,System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{Binance.Spot.Models.TimeInForce},System.Nullable{Binance.Spot.Models.NewOrderResponseType},System.Nullable{System.Int64})">
+            <summary>
+            Send in a new OCO.<para />
+            - Price Restrictions:.<para />
+              - `SELL`: Limit Price &gt; Last Price &gt; Stop Price.<para />
+              - `BUY`: Limit Price &lt; Last Price &lt; Stop Price.<para />
+            - Quantity Restrictions:.<para />
+                - Both legs must have the same quantity.<para />
+                - `ICEBERG` quantities however do not have to be the same.<para />
+            - Order Rate Limit.<para />
+                - `OCO` counts as 2 orders against the order rate limit.<para />
+                .<para />
+            Weight(IP): 1.
+            </summary>
+            <param name="symbol">Trading symbol, e.g. BNBUSDT.</param>
+            <param name="side"></param>
+            <param name="quantity"></param>
+            <param name="price">Order price.</param>
+            <param name="stopPrice"></param>
+            <param name="listClientOrderId">A unique Id for the entire orderList.</param>
+            <param name="limitClientOrderId">A unique Id for the limit order.</param>
+            <param name="limitStrategyId">Identify limit order as part of a strategy.</param>
+            <param name="limitStrategyType">The value cannot be less than 1000000.</param>
+            <param name="limitIcebergQty"></param>
+            <param name="trailingDelta"></param>
+            <param name="stopClientOrderId">A unique Id for the stop loss/stop loss limit leg.</param>
+            <param name="stopStrategyId">Identify stop order as part of a strategy.</param>
+            <param name="stopStrategyType">The value cannot be less than 1000000.</param>
+            <param name="stopLimitPrice">If provided, stopLimitTimeInForce is required.</param>
+            <param name="stopIcebergQty"></param>
+            <param name="stopLimitTimeInForce"></param>
+            <param name="newOrderRespType">Set the response JSON.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>New OCO details.</returns>
+        </member>
+        <member name="M:Binance.Spot.SpotAccountTrade.CancelOco(System.String,System.Nullable{System.Int64},System.String,System.String,System.Nullable{System.Int64})">
+            <summary>
+            Cancel an entire Order List.<para />
+            Canceling an individual leg will cancel the entire OCO.<para />
+            Weight(IP): 1.
+            </summary>
+            <param name="symbol">Trading symbol, e.g. BNBUSDT.</param>
+            <param name="orderListId">Order list id.</param>
+            <param name="listClientOrderId">A unique Id for the entire orderList.</param>
+            <param name="newClientOrderId">Used to uniquely identify this cancel. Automatically generated by default.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Report on deleted OCO.</returns>
+        </member>
+        <member name="M:Binance.Spot.SpotAccountTrade.QueryOco(System.Nullable{System.Int64},System.String,System.Nullable{System.Int64})">
+            <summary>
+            Retrieves a specific OCO based on provided optional parameters.<para />
+            Weight(IP): 2.
+            </summary>
+            <param name="orderListId">Order list id.</param>
+            <param name="origClientOrderId">Order id from client.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>OCO details.</returns>
+        </member>
+        <member name="M:Binance.Spot.SpotAccountTrade.QueryAllOco(System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int32},System.Nullable{System.Int64})">
+            <summary>
+            Retrieves all OCO based on provided optional parameters.<para />
+            Weight(IP): 10.
+            </summary>
+            <param name="fromId">Trade id to fetch from. Default gets most recent trades.</param>
+            <param name="startTime">UTC timestamp in ms.</param>
+            <param name="endTime">UTC timestamp in ms.</param>
+            <param name="limit">Default 500; max 1000.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>List of OCO orders.</returns>
+        </member>
+        <member name="M:Binance.Spot.SpotAccountTrade.QueryOpenOco(System.Nullable{System.Int64})">
+            <summary>
+            Weight(IP): 3.
+            </summary>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>List of OCO orders.</returns>
+        </member>
+        <member name="M:Binance.Spot.SpotAccountTrade.AccountInformation(System.Nullable{System.Int64})">
+            <summary>
+            Get current account information.<para />
+            Weight(IP): 10.
+            </summary>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Account details.</returns>
+        </member>
+        <member name="M:Binance.Spot.SpotAccountTrade.AccountTradeList(System.String,System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int32},System.Nullable{System.Int64})">
+            <summary>
+            Get trades for a specific account and symbol.<para />
+            If `fromId` is set, it will get id &gt;= that `fromId`. Otherwise most recent orders are returned.<para />
+            Weight(IP): 10.
+            </summary>
+            <param name="symbol">Trading symbol, e.g. BNBUSDT.</param>
+            <param name="orderId">This can only be used in combination with symbol.</param>
+            <param name="startTime">UTC timestamp in ms.</param>
+            <param name="endTime">UTC timestamp in ms.</param>
+            <param name="fromId">Trade id to fetch from. Default gets most recent trades.</param>
+            <param name="limit">Default 500; max 1000.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>List of trades.</returns>
+        </member>
+        <member name="M:Binance.Spot.SpotAccountTrade.QueryCurrentOrderCountUsage(System.Nullable{System.Int64})">
+            <summary>
+            Displays the user's current order count usage for all intervals.<para />
+            Weight(IP): 20.
+            </summary>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Order rate limits.</returns>
+        </member>
+        <member name="M:Binance.Spot.SpotAccountTrade.CancelAnExistingOrderAndSendANewOrder(System.String,Binance.Spot.Models.Side,Binance.Spot.Models.OrderType,System.String,System.Nullable{Binance.Spot.Models.TimeInForce},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.String,System.String,System.Nullable{System.Int64},System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{Binance.Spot.Models.NewOrderResponseType},System.Nullable{System.Int64})">
+            <summary>
+            Cancels an existing order and places a new order on the same symbol.<para />
+            Filters are evaluated before the cancel order is placed.<para />
+            If the new order placement is successfully sent to the engine, the order count will increase by 1.<para />
+            Weight(IP): 1.
+            </summary>
+            <param name="symbol">Trading symbol, e.g. BNBUSDT.</param>
+            <param name="side"></param>
+            <param name="type">Order type.</param>
+            <param name="cancelReplaceMode">- `STOP_ON_FAILURE` If the cancel request fails, the new order placement will not be attempted.<para />
+            - `ALLOW_FAILURES` If new order placement will be attempted even if cancel request fails.</param>
+            <param name="timeInForce">Order time in force.</param>
+            <param name="quantity">Order quantity.</param>
+            <param name="quoteOrderQty">Quote quantity.</param>
+            <param name="price">Order price.</param>
+            <param name="cancelNewClientOrderId">Used to uniquely identify this cancel. Automatically generated by default.</param>
+            <param name="cancelOrigClientOrderId">Either the cancelOrigClientOrderId or cancelOrderId must be provided. If both are provided, cancelOrderId takes precedence.</param>
+            <param name="cancelOrderId">Either the cancelOrigClientOrderId or cancelOrderId must be provided. If both are provided, cancelOrderId takes precedence.</param>
+            <param name="newClientOrderId">Used to identify the new order. Automatically generated by default.</param>
+            <param name="strategyId">Identify an order as part of a strategy.</param>
+            <param name="strategyType">The value cannot be less than 1000000.</param>
+            <param name="stopPrice">Used with STOP_LOSS, STOP_LOSS_LIMIT, TAKE_PROFIT, and TAKE_PROFIT_LIMIT orders.</param>
+            <param name="trailingDelta">Used with STOP_LOSS, STOP_LOSS_LIMIT, TAKE_PROFIT, and TAKE_PROFIT_LIMIT orders.</param>
+            <param name="icebergQty">Used with LIMIT, STOP_LOSS_LIMIT, and TAKE_PROFIT_LIMIT to create an iceberg order.</param>
+            <param name="newOrderRespType">Set the response JSON. MARKET and LIMIT order types default to FULL, all other orders default to ACK.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Operation details.</returns>
+        </member>
+        <member name="M:Binance.Spot.Staking.GetStakingProductList(System.String,System.String,System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int64})">
+            <summary>
+            Get available Staking product list.<para />
+            Weight(IP): 1.
+            </summary>
+            <param name="product">* `STAKING` - for Locked Staking.<para />
+            * `F_DEFI` - for flexible DeFi Staking.<para />
+            * `L_DEFI` - for locked DeFi Staking.</param>
+            <param name="asset"></param>
+            <param name="current">Currently querying page. Start from 1. Default:1.</param>
+            <param name="size">Default:10, Max:100.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Product list..</returns>
+        </member>
+        <member name="M:Binance.Spot.Staking.PurchaseStakingProduct(System.String,System.String,System.Decimal,System.String,System.Nullable{System.Int64})">
+            <summary>
+            Weight(IP): 1.
+            </summary>
+            <param name="product">* `STAKING` - for Locked Staking.<para />
+            * `F_DEFI` - for flexible DeFi Staking.<para />
+            * `L_DEFI` - for locked DeFi Staking.</param>
+            <param name="productId"></param>
+            <param name="amount"></param>
+            <param name="renewable">true or false, default false. Active if product is `STAKING` or `L_DEFI`.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Position Id..</returns>
+        </member>
+        <member name="M:Binance.Spot.Staking.RedeemStakingProduct(System.String,System.String,System.String,System.Nullable{System.Decimal},System.Nullable{System.Int64})">
+            <summary>
+            Redeem Staking product. Locked staking and Locked DeFI staking belong to early redemption, redeeming in advance will result in loss of interest that you have earned.<para />
+            Weight(IP): 1.
+            </summary>
+            <param name="product">* `STAKING` - for Locked Staking.<para />
+            * `F_DEFI` - for flexible DeFi Staking.<para />
+            * `L_DEFI` - for locked DeFi Staking.</param>
+            <param name="productId"></param>
+            <param name="positionId">Mandatory if product is `STAKING` or `L_DEFI`.</param>
+            <param name="amount">Mandatory if product is `F_DEFI`.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Success..</returns>
+        </member>
+        <member name="M:Binance.Spot.Staking.GetStakingProductPosition(System.String,System.String,System.String,System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int64})">
+            <summary>
+            Weight(IP): 1.
+            </summary>
+            <param name="product">* `STAKING` - for Locked Staking.<para />
+            * `F_DEFI` - for flexible DeFi Staking.<para />
+            * `L_DEFI` - for locked DeFi Staking.</param>
+            <param name="productId"></param>
+            <param name="asset"></param>
+            <param name="current">Currently querying the page. Start from 1. Default:1.</param>
+            <param name="size">Default:10, Max:100.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Position..</returns>
+        </member>
+        <member name="M:Binance.Spot.Staking.GetStakingHistory(System.String,System.String,System.String,System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int64})">
+            <summary>
+            Weight(IP): 1.
+            </summary>
+            <param name="product">* `STAKING` - for Locked Staking.<para />
+            * `F_DEFI` - for flexible DeFi Staking.<para />
+            * `L_DEFI` - for locked DeFi Staking.</param>
+            <param name="txnType">`SUBSCRIPTION`, `REDEMPTION`, `INTEREST`.</param>
+            <param name="asset"></param>
+            <param name="startTime"></param>
+            <param name="endTime"></param>
+            <param name="current">Currently querying the page. Start from 1. Default:1.</param>
+            <param name="size">Default:10, Max:100.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Staking History..</returns>
+        </member>
+        <member name="M:Binance.Spot.Staking.SetAutoStaking(System.String,System.String,System.String,System.Nullable{System.Int64})">
+            <summary>
+            Set auto staking on Locked Staking or Locked DeFi Staking.<para />
+            Weight(IP): 1.
+            </summary>
+            <param name="product">* `STAKING` - for Locked Staking.<para />
+            * `L_DEFI` - for locked DeFi Staking.</param>
+            <param name="positionId"></param>
+            <param name="renewable">true or false.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Success..</returns>
+        </member>
+        <member name="M:Binance.Spot.Staking.GetPersonalLeftQuotaOfStakingProduct(System.String,System.String,System.Nullable{System.Int64})">
+            <summary>
+            Weight(IP): 1.
+            </summary>
+            <param name="product">* `STAKING` - for Locked Staking.<para />
+            * `F_DEFI` - for flexible DeFi Staking.<para />
+            * `L_DEFI` - for locked DeFi Staking.</param>
+            <param name="productId"></param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Quota..</returns>
+        </member>
+        <member name="M:Binance.Spot.SubAccount.CreateAVirtualSubaccount(System.String,System.Nullable{System.Int64})">
+            <summary>
+            - This request will generate a virtual sub account under your master account.<para />
+            - You need to enable "trade" option for the api key which requests this endpoint.<para />
+            Weight(IP): 1.
+            </summary>
+            <param name="subAccountString">Please input a string. We will create a virtual email using that string for you to register.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Return the created virtual email.</returns>
+        </member>
+        <member name="M:Binance.Spot.SubAccount.QuerySubaccountList(System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int64})">
+            <summary>
+            Weight(IP): 1.
+            </summary>
+            <param name="email">Sub-account email.</param>
+            <param name="isFreeze"></param>
+            <param name="page">Default 1.</param>
+            <param name="limit">Default 1; max 200.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>List of sub-accounts.</returns>
+        </member>
+        <member name="M:Binance.Spot.SubAccount.QuerySubaccountSpotAssetTransferHistory(System.String,System.String,System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int64})">
+            <summary>
+            - fromEmail and toEmail cannot be sent at the same time.<para />
+            - Return fromEmail equal master account email by default.<para />
+            Weight(IP): 1.
+            </summary>
+            <param name="fromEmail">Sub-account email.</param>
+            <param name="toEmail">Sub-account email.</param>
+            <param name="startTime">UTC timestamp in ms.</param>
+            <param name="endTime">UTC timestamp in ms.</param>
+            <param name="page">Default 1.</param>
+            <param name="limit">Default 1.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Sub-account Spot Asset Transfer History.</returns>
+        </member>
+        <member name="M:Binance.Spot.SubAccount.QuerySubaccountFuturesAssetTransferHistory(System.String,Binance.Spot.Models.FuturesType,System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int64})">
+            <summary>
+            Weight(IP): 1.
+            </summary>
+            <param name="email">Sub-account email.</param>
+            <param name="futuresType">1:USDT-margined Futures, 2: Coin-margined Futures.</param>
+            <param name="startTime">UTC timestamp in ms.</param>
+            <param name="endTime">UTC timestamp in ms.</param>
+            <param name="page">Default 1.</param>
+            <param name="limit">Default value: 50, Max value: 500.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Sub-account Futures Asset Transfer History.</returns>
+        </member>
+        <member name="M:Binance.Spot.SubAccount.SubaccountFuturesAssetTransfer(System.String,System.String,Binance.Spot.Models.FuturesType,System.String,System.Decimal,System.Nullable{System.Int64})">
+            <summary>
+            - Master account can transfer max 2000 times a minute.<para />
+            Weight(IP): 1.
+            </summary>
+            <param name="fromEmail">Sender email.</param>
+            <param name="toEmail">Recipient email.</param>
+            <param name="futuresType">1:USDT-margined Futures,2: Coin-margined Futures.</param>
+            <param name="asset"></param>
+            <param name="amount"></param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Futures Asset Transfer Info.</returns>
+        </member>
+        <member name="M:Binance.Spot.SubAccount.QuerySubaccountAssets(System.String,System.Nullable{System.Int64})">
+            <summary>
+            Fetch sub-account assets.<para />
+            Weight(IP): 1.
+            </summary>
+            <param name="email">Sub-account email.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>List of assets balances.</returns>
+        </member>
+        <member name="M:Binance.Spot.SubAccount.QuerySubaccountSpotAssetsSummary(System.String,System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int64})">
+            <summary>
+            Get BTC valued asset summary of subaccounts.<para />
+            Weight(IP): 1.
+            </summary>
+            <param name="email">Sub-account email.</param>
+            <param name="page">Default 1.</param>
+            <param name="size">Default:10 Max:20.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Summary of Sub-account Spot Assets.</returns>
+        </member>
+        <member name="M:Binance.Spot.SubAccount.GetSubaccountDepositAddress(System.String,System.String,System.String,System.Nullable{System.Int64})">
+            <summary>
+            Fetch sub-account deposit address.<para />
+            Weight(IP): 1.
+            </summary>
+            <param name="email">Sub-account email.</param>
+            <param name="coin">Coin name.</param>
+            <param name="network"></param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Deposit address info.</returns>
+        </member>
+        <member name="M:Binance.Spot.SubAccount.GetSubaccountDepositHistory(System.String,System.String,System.Nullable{Binance.Spot.Models.DepositStatus},System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int64})">
+            <summary>
+            Fetch sub-account deposit history.<para />
+            Weight(IP): 1.
+            </summary>
+            <param name="email">Sub-account email.</param>
+            <param name="coin">Coin name.</param>
+            <param name="status">0(0:pending,6: credited but cannot withdraw, 1:success).</param>
+            <param name="startTime">UTC timestamp in ms.</param>
+            <param name="endTime">UTC timestamp in ms.</param>
+            <param name="limit"></param>
+            <param name="offset"></param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Sub-account deposit history.</returns>
+        </member>
+        <member name="M:Binance.Spot.SubAccount.GetSubaccountsStatusOnMarginFutures(System.String,System.Nullable{System.Int64})">
+            <summary>
+            - If no `email` sent, all sub-accounts' information will be returned.<para />
+            Weight(IP): 10.
+            </summary>
+            <param name="email">Sub-account email.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Status on Margin/Futures.</returns>
+        </member>
+        <member name="M:Binance.Spot.SubAccount.EnableMarginForSubaccount(System.String,System.Nullable{System.Int64})">
+            <summary>
+            Weight(IP): 1.
+            </summary>
+            <param name="email">Sub-account email.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Margin status.</returns>
+        </member>
+        <member name="M:Binance.Spot.SubAccount.GetDetailOnSubaccountsMarginAccount(System.String,System.Nullable{System.Int64})">
+            <summary>
+            Weight(IP): 10.
+            </summary>
+            <param name="email">Sub-account email.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Margin sub-account details.</returns>
+        </member>
+        <member name="M:Binance.Spot.SubAccount.GetSummaryOfSubaccountsMarginAccount(System.Nullable{System.Int64})">
+            <summary>
+            Weight(IP): 10.
+            </summary>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Margin sub-account details.</returns>
+        </member>
+        <member name="M:Binance.Spot.SubAccount.EnableFuturesForSubaccount(System.String,System.Nullable{System.Int64})">
+            <summary>
+            Weight(IP): 1.
+            </summary>
+            <param name="email">Sub-account email.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Futures status.</returns>
+        </member>
+        <member name="M:Binance.Spot.SubAccount.GetDetailOnSubaccountsFuturesAccount(System.String,System.Nullable{System.Int64})">
+            <summary>
+            Weight(IP): 10.
+            </summary>
+            <param name="email">Sub-account email.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Futures account details.</returns>
+        </member>
+        <member name="M:Binance.Spot.SubAccount.GetSummaryOfSubaccountsFuturesAccount(System.Nullable{System.Int64})">
+            <summary>
+            Weight(IP): 1.
+            </summary>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Futures account summary.</returns>
+        </member>
+        <member name="M:Binance.Spot.SubAccount.GetFuturesPositionriskOfSubaccount(System.String,System.Nullable{System.Int64})">
+            <summary>
+            Weight(IP): 10.
+            </summary>
+            <param name="email">Sub-account email.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Futures account summary.</returns>
+        </member>
+        <member name="M:Binance.Spot.SubAccount.FuturesTransferForSubaccount(System.String,System.String,System.Decimal,Binance.Spot.Models.FuturesTransferType,System.Nullable{System.Int64})">
+            <summary>
+            Weight(IP): 1.
+            </summary>
+            <param name="email">Sub-account email.</param>
+            <param name="asset"></param>
+            <param name="amount"></param>
+            <param name="type">* `1` - transfer from subaccount's spot account to its USDT-margined futures account.<para />
+            * `2` - transfer from subaccount's USDT-margined futures account to its spot account.<para />
+            * `3` - transfer from subaccount's spot account to its COIN-margined futures account.<para />
+            * `4` - transfer from subaccount's COIN-margined futures account to its spot account.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Transfer id.</returns>
+        </member>
+        <member name="M:Binance.Spot.SubAccount.MarginTransferForSubaccount(System.String,System.String,System.Decimal,Binance.Spot.Models.MarginTransferType,System.Nullable{System.Int64})">
+            <summary>
+            Weight(IP): 1.
+            </summary>
+            <param name="email">Sub-account email.</param>
+            <param name="asset"></param>
+            <param name="amount"></param>
+            <param name="type">* `1` - transfer from subaccount's spot account to margin account.<para />
+            * `2` - transfer from subaccount's margin account to its spot account.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Transfer id.</returns>
+        </member>
+        <member name="M:Binance.Spot.SubAccount.TransferToSubaccountOfSameMaster(System.String,System.String,System.Decimal,System.Nullable{System.Int64})">
+            <summary>
+            Weight(IP): 1.
+            </summary>
+            <param name="toEmail">Recipient email.</param>
+            <param name="asset"></param>
+            <param name="amount"></param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Transfer id.</returns>
+        </member>
+        <member name="M:Binance.Spot.SubAccount.TransferToMaster(System.String,System.Decimal,System.Nullable{System.Int64})">
+            <summary>
+            Weight(IP): 1.
+            </summary>
+            <param name="asset"></param>
+            <param name="amount"></param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Transfer id.</returns>
+        </member>
+        <member name="M:Binance.Spot.SubAccount.SubaccountTransferHistory(System.String,System.Nullable{Binance.Spot.Models.TransferDirection},System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int32},System.Nullable{System.Int64})">
+            <summary>
+            - If `type` is not sent, the records of type 2: transfer out will be returned by default.<para />
+            - If `startTime` and `endTime` are not sent, the recent 30-day data will be returned.<para />
+            Weight(IP): 1.
+            </summary>
+            <param name="asset"></param>
+            <param name="type">* `1` - transfer in.<para />
+            * `2` - transfer out.</param>
+            <param name="startTime">UTC timestamp in ms.</param>
+            <param name="endTime">UTC timestamp in ms.</param>
+            <param name="limit">Default 500; max 1000.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Transfer id.</returns>
+        </member>
+        <member name="M:Binance.Spot.SubAccount.UniversalTransfer(Binance.Spot.Models.UniversalTransferAccountType,Binance.Spot.Models.UniversalTransferAccountType,System.String,System.Decimal,System.String,System.String,System.String,System.String,System.Nullable{System.Int64})">
+            <summary>
+            - You need to enable "internal transfer" option for the api key which requests this endpoint.<para />
+            - Transfer from master account by default if fromEmail is not sent.<para />
+            - Transfer to master account by default if toEmail is not sent.<para />
+            - Transfer between futures accounts is not supported.<para />
+            Weight(IP): 1.
+            </summary>
+            <param name="fromAccountType"></param>
+            <param name="toAccountType"></param>
+            <param name="asset"></param>
+            <param name="amount"></param>
+            <param name="fromEmail">Sub-account email.</param>
+            <param name="toEmail">Sub-account email.</param>
+            <param name="clientTranId"></param>
+            <param name="symbol">Only supported under ISOLATED_MARGIN type.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Transfer id.</returns>
+        </member>
+        <member name="M:Binance.Spot.SubAccount.QueryUniversalTransferHistory(System.String,System.String,System.String,System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int64})">
+            <summary>
+            - `fromEmail` and `toEmail` cannot be sent at the same time.<para />
+            - Return `fromEmail` equal master account email by default.<para />
+            - The query time period must be less then 30 days.<para />
+            - If startTime and endTime not sent, return records of the last 30 days by default.<para />
+            Weight(IP): 1.
+            </summary>
+            <param name="fromEmail">Sub-account email.</param>
+            <param name="toEmail">Sub-account email.</param>
+            <param name="clientTranId"></param>
+            <param name="startTime">UTC timestamp in ms.</param>
+            <param name="endTime">UTC timestamp in ms.</param>
+            <param name="page">Default 1.</param>
+            <param name="limit">Default 500, Max 500.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Transfer History.</returns>
+        </member>
+        <member name="M:Binance.Spot.SubAccount.GetDetailOnSubaccountsFuturesAccountV2(System.String,Binance.Spot.Models.FuturesType,System.Nullable{System.Int64})">
+            <summary>
+            Weight(IP): 1.
+            </summary>
+            <param name="email">Sub-account email.</param>
+            <param name="futuresType">* `1` - USDT Margined Futures.<para />
+            * `2` - COIN Margined Futures.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>USDT or COIN Margined Futures Details.</returns>
+        </member>
+        <member name="M:Binance.Spot.SubAccount.GetSummaryOfSubaccountsFuturesAccountV2(Binance.Spot.Models.FuturesType,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int64})">
+            <summary>
+            Weight(IP): 10.
+            </summary>
+            <param name="futuresType">* `1` - USDT Margined Futures.<para />
+            * `2` - COIN Margined Futures.</param>
+            <param name="page">Default 1.</param>
+            <param name="limit">Default 10, Max 20.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>USDT or COIN Margined Futures Summary.</returns>
+        </member>
+        <member name="M:Binance.Spot.SubAccount.GetFuturesPositionriskOfSubaccountV2(System.String,Binance.Spot.Models.FuturesType,System.Nullable{System.Int64})">
+            <summary>
+            Weight(IP): 1.
+            </summary>
+            <param name="email">Sub-account email.</param>
+            <param name="futuresType">* `1` - USDT Margined Futures.<para />
+            * `2` - COIN Margined Futures.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>USDT or COIN Margined Futures Position Risk.</returns>
+        </member>
+        <member name="M:Binance.Spot.SubAccount.EnableLeverageTokenForSubaccount(System.String,System.Boolean,System.Nullable{System.Int64})">
+            <summary>
+            Weight(IP): 1.
+            </summary>
+            <param name="email">Sub-account email.</param>
+            <param name="enableBlvt">Only true for now.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>BLVT status.</returns>
+        </member>
+        <member name="M:Binance.Spot.SubAccount.DepositAssetsIntoTheManagedSubaccount(System.String,System.String,System.Decimal,System.Nullable{System.Int64})">
+            <summary>
+            Weight(IP): 1.
+            </summary>
+            <param name="toEmail">Recipient email.</param>
+            <param name="asset"></param>
+            <param name="amount"></param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Transfer id.</returns>
+        </member>
+        <member name="M:Binance.Spot.SubAccount.QueryManagedSubaccountAssetDetails(System.String,System.Nullable{System.Int64})">
+            <summary>
+            Weight(IP): 1.
+            </summary>
+            <param name="email">Sub-account email.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>List of asset details.</returns>
+        </member>
+        <member name="M:Binance.Spot.SubAccount.WithdrawlAssetsFromTheManagedSubaccount(System.String,System.String,System.Decimal,System.Nullable{System.Int64},System.Nullable{System.Int64})">
+            <summary>
+            Weight(IP): 1.
+            </summary>
+            <param name="fromEmail">Sender email.</param>
+            <param name="asset"></param>
+            <param name="amount"></param>
+            <param name="transferDate">Withdrawals is automatically occur on the transfer date(UTC0). If a date is not selected, the withdrawal occurs right now.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Transfer id.</returns>
+        </member>
+        <member name="M:Binance.Spot.SubAccount.QueryManagedSubaccountSnapshot(System.String,System.String,System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int32},System.Nullable{System.Int64})">
+            <summary>
+            - The query time period must be less then 30 days.<para />
+            - Support query within the last one month only.<para />
+            - If `startTime` and `endTime` not sent, return records of the last 7 days by default.<para />
+            Weight(IP): 2400.
+            </summary>
+            <param name="email"></param>
+            <param name="type">"SPOT", "MARGIN"（cross）, "FUTURES"（UM）.</param>
+            <param name="startTime"></param>
+            <param name="endTime"></param>
+            <param name="limit">min 7, max 30, default 7.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Sub-account spot snapshot.</returns>
+        </member>
+        <member name="M:Binance.Spot.SubAccount.EnableOrDisableIpRestrictionForASubaccountApiKey(System.String,System.String,System.Boolean,System.Nullable{System.Int64})">
+            <summary>
+            Weight(UID): 3000.
+            </summary>
+            <param name="email">Sub-account email.</param>
+            <param name="subAccountApiKey"></param>
+            <param name="ipRestrict">true or false.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>IP Restriction information.</returns>
+        </member>
+        <member name="M:Binance.Spot.SubAccount.GetIpRestrictionForASubaccountApiKey(System.String,System.String,System.Nullable{System.Int64})">
+            <summary>
+            Weight(UID): 3000.
+            </summary>
+            <param name="email">Sub-account email.</param>
+            <param name="subAccountApiKey"></param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>IP Restriction information.</returns>
+        </member>
+        <member name="M:Binance.Spot.SubAccount.AddIpListForASubaccountApiKey(System.String,System.String,System.String,System.Nullable{System.Int64})">
+            <summary>
+            Before the usage of this endpoint, please ensure `POST /sapi/v1/sub-account/subAccountApi/ipRestriction` was used to enable the IP restriction.<para />
+            Weight(UID): 3000.
+            </summary>
+            <param name="email">Sub-account email.</param>
+            <param name="subAccountApiKey"></param>
+            <param name="ipAddress">Can be added in batches, separated by commas.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Add IP information.</returns>
+        </member>
+        <member name="M:Binance.Spot.SubAccount.DeleteIpListForASubaccountApiKey(System.String,System.String,System.String,System.Nullable{System.Int64})">
+            <summary>
+            Weight(UID): 3000.
+            </summary>
+            <param name="email">Sub-account email.</param>
+            <param name="subAccountApiKey"></param>
+            <param name="ipAddress">Can be added in batches, separated by commas.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Delete IP information.</returns>
+        </member>
+        <member name="M:Binance.Spot.UserDataStreams.CreateSpotListenKey">
+            <summary>
+            Start a new user data stream.<para />
+            The stream will close after 60 minutes unless a keepalive is sent. If the account has an active `listenKey`, that `listenKey` will be returned and its validity will be extended for 60 minutes.<para />
+            Weight: 1.
+            </summary>
+            <returns>Listen key.</returns>
+        </member>
+        <member name="M:Binance.Spot.UserDataStreams.PingSpotListenKey(System.String)">
+            <summary>
+            Keepalive a user data stream to prevent a time out. User data streams will close after 60 minutes. It's recommended to send a ping about every 30 minutes.<para />
+            Weight: 1.
+            </summary>
+            <param name="listenKey">User websocket listen key.</param>
+            <returns>OK.</returns>
+        </member>
+        <member name="M:Binance.Spot.UserDataStreams.CloseSpotListenKey(System.String)">
+            <summary>
+            Close out a user data stream.<para />
+            Weight: 1.
+            </summary>
+            <param name="listenKey">User websocket listen key.</param>
+            <returns>OK.</returns>
+        </member>
+        <member name="M:Binance.Spot.UserDataStreams.CreateMarginListenKey">
+            <summary>
+            Start a new user data stream.<para />
+            The stream will close after 60 minutes unless a keepalive is sent. If the account has an active `listenKey`, that `listenKey` will be returned and its validity will be extended for 60 minutes.<para />
+            Weight: 1.
+            </summary>
+            <returns>Margin listen key.</returns>
+        </member>
+        <member name="M:Binance.Spot.UserDataStreams.PingMarginListenKey(System.String)">
+            <summary>
+            Keepalive a user data stream to prevent a time out. User data streams will close after 60 minutes. It's recommended to send a ping about every 30 minutes.<para />
+            Weight: 1.
+            </summary>
+            <param name="listenKey">User websocket listen key.</param>
+            <returns>OK.</returns>
+        </member>
+        <member name="M:Binance.Spot.UserDataStreams.CloseMarginListenKey(System.String)">
+            <summary>
+            Close out a user data stream.<para />
+            Weight: 1.
+            </summary>
+            <param name="listenKey">User websocket listen key.</param>
+            <returns>OK.</returns>
+        </member>
+        <member name="M:Binance.Spot.UserDataStreams.CreateIsolatedMarginListenKey(System.String)">
+            <summary>
+            Start a new user data stream.<para />
+            The stream will close after 60 minutes unless a keepalive is sent. If the account has an active `listenKey`, that `listenKey` will be returned and its validity will be extended for 60 minutes.<para />
+            Weight: 1.
+            </summary>
+            <param name="symbol"></param>
+            <returns>Isolated margin listen key.</returns>
+        </member>
+        <member name="M:Binance.Spot.UserDataStreams.PingIsolatedMarginListenKey(System.String,System.String)">
+            <summary>
+            Keepalive a user data stream to prevent a time out. User data streams will close after 60 minutes. It's recommended to send a ping about every 30 minutes.<para />
+            Weight: 1.
+            </summary>
+            <param name="symbol"></param>
+            <param name="listenKey">User websocket listen key.</param>
+            <returns>OK.</returns>
+        </member>
+        <member name="M:Binance.Spot.UserDataStreams.CloseIsolatedMarginListenKey(System.String,System.String)">
+            <summary>
+            Close out a user data stream.<para />
+            Weight: 1.
+            </summary>
+            <param name="symbol"></param>
+            <param name="listenKey">User websocket listen key.</param>
+            <returns>OK.</returns>
+        </member>
+        <member name="M:Binance.Spot.Wallet.SystemStatus">
+            <summary>
+            Fetch system status.<para />
+            Weight(IP): 1.
+            </summary>
+            <returns>OK.</returns>
+        </member>
+        <member name="M:Binance.Spot.Wallet.AllCoinsInformation(System.Nullable{System.Int64})">
+            <summary>
+            Get information of coins (available for deposit and withdraw) for user.<para />
+            Weight(IP): 10.
+            </summary>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>All coins details information.</returns>
+        </member>
+        <member name="M:Binance.Spot.Wallet.DailyAccountSnapshot(Binance.Spot.Models.AccountType,System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int32},System.Nullable{System.Int64})">
+            <summary>
+            - The query time period must be less than 30 days.<para />
+            - Support query within the last one month only.<para />
+            - If startTimeand endTime not sent, return records of the last 7 days by default.<para />
+            Weight(IP): 2400.
+            </summary>
+            <param name="type">"SPOT", "MARGIN", "FUTURES".</param>
+            <param name="startTime">UTC timestamp in ms.</param>
+            <param name="endTime">UTC timestamp in ms.</param>
+            <param name="limit"></param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Account Snapshot.</returns>
+        </member>
+        <member name="M:Binance.Spot.Wallet.DisableFastWithdrawSwitch(System.Nullable{System.Int64})">
+            <summary>
+            - This request will disable fastwithdraw switch under your account.<para />
+            - You need to enable "trade" option for the api key which requests this endpoint.<para />
+            Weight(IP): 1.
+            </summary>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>OK.</returns>
+        </member>
+        <member name="M:Binance.Spot.Wallet.EnableFastWithdrawSwitch(System.Nullable{System.Int64})">
+            <summary>
+            - This request will enable fastwithdraw switch under your account. You need to enable "trade" option for the api key which requests this endpoint.<para />
+            - When Fast Withdraw Switch is on, transferring funds to a Binance account will be done instantly. There is no on-chain transaction, no transaction ID and no withdrawal fee.<para />
+            Weight(IP): 1.
+            </summary>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>OK.</returns>
+        </member>
+        <member name="M:Binance.Spot.Wallet.Withdraw(System.String,System.String,System.Decimal,System.String,System.String,System.String,System.Nullable{System.Boolean},System.String,System.Nullable{System.Int32},System.Nullable{System.Int64})">
+            <summary>
+            Submit a withdraw request.<para />
+            - If `network` not send, return with default network of the coin.<para />
+            - You can get `network` and `isDefault` in `networkList` of a coin in the response of `Get /sapi/v1/capital/config/getall (HMAC SHA256)`.<para />
+            Weight(IP): 1.
+            </summary>
+            <param name="coin">Coin name.</param>
+            <param name="address"></param>
+            <param name="amount"></param>
+            <param name="withdrawOrderId">Client id for withdraw.</param>
+            <param name="network">Get the value from `GET /sapi/v1/capital/config/getall`.</param>
+            <param name="addressTag">Secondary address identifier for coins like XRP,XMR etc.</param>
+            <param name="transactionFeeFlag">When making internal transfer.<para />
+            - `true` ->  returning the fee to the destination account;.<para />
+            - `false` -> returning the fee back to the departure account.</param>
+            <param name="name"></param>
+            <param name="walletType">The wallet type for withdraw，0-Spot wallet, 1- Funding wallet. Default is Spot wallet.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Transafer Id.</returns>
+        </member>
+        <member name="M:Binance.Spot.Wallet.DepositHistory(System.String,System.Nullable{Binance.Spot.Models.DepositStatus},System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int64})">
+            <summary>
+            Fetch deposit history.<para />
+            - Please notice the default `startTime` and `endTime` to make sure that time interval is within 0-90 days.<para />
+            - If both `startTime` and `endTime` are sent, time between `startTime` and `endTime` must be less than 90 days.<para />
+            Weight(IP): 1.
+            </summary>
+            <param name="coin">Coin name.</param>
+            <param name="status">* `0` - pending.<para />
+            * `6` - credited but cannot withdraw.<para />
+            * `1` - success.</param>
+            <param name="startTime">UTC timestamp in ms.</param>
+            <param name="endTime">UTC timestamp in ms.</param>
+            <param name="offset"></param>
+            <param name="limit">Default 500; max 1000.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>List of deposits.</returns>
+        </member>
+        <member name="M:Binance.Spot.Wallet.WithdrawHistory(System.String,System.String,System.Nullable{Binance.Spot.Models.WithdrawStatus},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int64})">
+            <summary>
+            Fetch withdraw history.<para />
+            - `network` may not be in the response for old withdraw.<para />
+            - Please notice the default `startTime` and `endTime` to make sure that time interval is within 0-90 days.<para />
+            - If both `startTime` and `endTime` are sent, time between `startTime` and `endTime` must be less than 90 days.<para />
+            Weight(IP): 1.
+            </summary>
+            <param name="coin">Coin name.</param>
+            <param name="withdrawOrderId"></param>
+            <param name="status">* `0` - Email Sent.<para />
+            * `1` - Cancelled.<para />
+            * `2` - Awaiting Approval.<para />
+            * `3` - Rejected.<para />
+            * `4` - Processing.<para />
+            * `5` - Failure.<para />
+            * `6` - Completed.</param>
+            <param name="offset"></param>
+            <param name="limit">Default 500; max 1000.</param>
+            <param name="startTime">UTC timestamp in ms.</param>
+            <param name="endTime">UTC timestamp in ms.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>List of withdraw history.</returns>
+        </member>
+        <member name="M:Binance.Spot.Wallet.DepositAddress(System.String,System.String,System.Nullable{System.Int64})">
+            <summary>
+            Fetch deposit address with network.<para />
+            - If network is not send, return with default network of the coin.<para />
+            - You can get network and isDefault in networkList in the response of Get /sapi/v1/capital/config/getall (HMAC SHA256).<para />
+            Weight(IP): 10.
+            </summary>
+            <param name="coin">Coin name.</param>
+            <param name="network"></param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Deposit address info.</returns>
+        </member>
+        <member name="M:Binance.Spot.Wallet.AccountStatus(System.Nullable{System.Int64})">
+            <summary>
+            Fetch account status detail.<para />
+            Weight(IP): 1.
+            </summary>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>OK.</returns>
+        </member>
+        <member name="M:Binance.Spot.Wallet.AccountApiTradingStatus(System.Nullable{System.Int64})">
+            <summary>
+            Fetch account API trading status with details.<para />
+            Weight(IP): 1.
+            </summary>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Account API trading status.</returns>
+        </member>
+        <member name="M:Binance.Spot.Wallet.Dustlog(System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int64})">
+            <summary>
+            Weight(IP): 1.
+            </summary>
+            <param name="startTime">UTC timestamp in ms.</param>
+            <param name="endTime">UTC timestamp in ms.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Dust log records.</returns>
+        </member>
+        <member name="M:Binance.Spot.Wallet.BnbConvertableAssets(System.Nullable{System.Int64})">
+            <summary>
+            Weight(IP): 1.
+            </summary>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Account assets available to be converted to BNB.</returns>
+        </member>
+        <member name="M:Binance.Spot.Wallet.DustTransfer(System.String[],System.Nullable{System.Int64})">
+            <summary>
+            Convert dust assets to BNB.<para />
+            Weight(UID): 10.
+            </summary>
+            <param name="asset">The asset being converted. For example, asset=BTC&amp;asset=USDT.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Dust log records.</returns>
+        </member>
+        <member name="M:Binance.Spot.Wallet.AssetDividendRecord(System.String,System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int32},System.Nullable{System.Int64})">
+            <summary>
+            Query asset Dividend Record.<para />
+            Weight(IP): 10.
+            </summary>
+            <param name="asset"></param>
+            <param name="startTime">UTC timestamp in ms.</param>
+            <param name="endTime">UTC timestamp in ms.</param>
+            <param name="limit"></param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Records of asset devidend.</returns>
+        </member>
+        <member name="M:Binance.Spot.Wallet.AssetDetail(System.String,System.Nullable{System.Int64})">
+            <summary>
+            Fetch details of assets supported on Binance.<para />
+            - Please get network and other deposit or withdraw details from `GET /sapi/v1/capital/config/getall`.<para />
+            Weight(IP): 1.
+            </summary>
+            <param name="asset"></param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Asset detail.</returns>
+        </member>
+        <member name="M:Binance.Spot.Wallet.TradeFee(System.String,System.Nullable{System.Int64})">
+            <summary>
+            Fetch trade fee.<para />
+            Weight(IP): 1.
+            </summary>
+            <param name="symbol">Trading symbol, e.g. BNBUSDT.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Trade fee info per symbol.</returns>
+        </member>
+        <member name="M:Binance.Spot.Wallet.QueryUserUniversalTransferHistory(Binance.Spot.Models.UniversalTransferType,System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.String,System.Nullable{System.Int64})">
+            <summary>
+            - `fromSymbol` must be sent when type are ISOLATEDMARGIN_MARGIN and ISOLATEDMARGIN_ISOLATEDMARGIN.<para />
+            - `toSymbol` must be sent when type are MARGIN_ISOLATEDMARGIN and ISOLATEDMARGIN_ISOLATEDMARGIN.<para />
+            - Support query within the last 6 months only.<para />
+            - If `startTime` and `endTime` not sent, return records of the last 7 days by default.<para />
+            Weight(IP): 1.
+            </summary>
+            <param name="type">Universal transfer type.</param>
+            <param name="startTime">UTC timestamp in ms.</param>
+            <param name="endTime">UTC timestamp in ms.</param>
+            <param name="current">Current querying page. Start from 1. Default:1.</param>
+            <param name="size">Default:10 Max:100.</param>
+            <param name="fromSymbol">Must be sent when type are ISOLATEDMARGIN_MARGIN and ISOLATEDMARGIN_ISOLATEDMARGIN.</param>
+            <param name="toSymbol">Must be sent when type are MARGIN_ISOLATEDMARGIN and ISOLATEDMARGIN_ISOLATEDMARGIN.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Universal transfer history.</returns>
+        </member>
+        <member name="M:Binance.Spot.Wallet.UserUniversalTransfer(Binance.Spot.Models.UniversalTransferType,System.String,System.Decimal,System.String,System.String,System.Nullable{System.Int64})">
+            <summary>
+            You need to enable `Permits Universal Transfer` option for the api key which requests this endpoint.<para />
+            - `fromSymbol` must be sent when type are ISOLATEDMARGIN_MARGIN and ISOLATEDMARGIN_ISOLATEDMARGIN.<para />
+            - `toSymbol` must be sent when type are MARGIN_ISOLATEDMARGIN and ISOLATEDMARGIN_ISOLATEDMARGIN.<para />
+            ENUM of transfer types:.<para />
+            - MAIN_UMFUTURE Spot account transfer to USDⓈ-M Futures account.<para />
+            - MAIN_CMFUTURE Spot account transfer to COIN-M Futures account.<para />
+            - MAIN_MARGIN Spot account transfer to Margin（cross）account.<para />
+            - UMFUTURE_MAIN USDⓈ-M Futures account transfer to Spot account.<para />
+            - UMFUTURE_MARGIN USDⓈ-M Futures account transfer to Margin（cross）account.<para />
+            - CMFUTURE_MAIN COIN-M Futures account transfer to Spot account.<para />
+            - CMFUTURE_MARGIN COIN-M Futures account transfer to Margin(cross) account.<para />
+            - MARGIN_MAIN Margin（cross）account transfer to Spot account.<para />
+            - MARGIN_UMFUTURE Margin（cross）account transfer to USDⓈ-M Futures.<para />
+            - MARGIN_CMFUTURE Margin（cross）account transfer to COIN-M Futures.<para />
+            - ISOLATEDMARGIN_MARGIN Isolated margin account transfer to Margin(cross) account.<para />
+            - MARGIN_ISOLATEDMARGIN Margin(cross) account transfer to Isolated margin account.<para />
+            - ISOLATEDMARGIN_ISOLATEDMARGIN Isolated margin account transfer to Isolated margin account.<para />
+            - MAIN_FUNDING Spot account transfer to Funding account.<para />
+            - FUNDING_MAIN Funding account transfer to Spot account.<para />
+            - FUNDING_UMFUTURE Funding account transfer to UMFUTURE account.<para />
+            - UMFUTURE_FUNDING UMFUTURE account transfer to Funding account.<para />
+            - MARGIN_FUNDING MARGIN account transfer to Funding account.<para />
+            - FUNDING_MARGIN Funding account transfer to Margin account.<para />
+            - FUNDING_CMFUTURE Funding account transfer to CMFUTURE account.<para />
+            - CMFUTURE_FUNDING CMFUTURE account transfer to Funding account.<para />
+            Weight(IP): 1.
+            </summary>
+            <param name="type">Universal transfer type.</param>
+            <param name="asset"></param>
+            <param name="amount"></param>
+            <param name="fromSymbol">Must be sent when type are ISOLATEDMARGIN_MARGIN and ISOLATEDMARGIN_ISOLATEDMARGIN.</param>
+            <param name="toSymbol">Must be sent when type are MARGIN_ISOLATEDMARGIN and ISOLATEDMARGIN_ISOLATEDMARGIN.</param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Transfer id.</returns>
+        </member>
+        <member name="M:Binance.Spot.Wallet.FundingWallet(System.String,System.Nullable{System.Boolean},System.Nullable{System.Int64})">
+            <summary>
+            - Currently supports querying the following business assets：Binance Pay, Binance Card, Binance Gift Card, Stock Token.<para />
+            Weight(IP): 1.
+            </summary>
+            <param name="asset"></param>
+            <param name="needBtcValuation"></param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>Funding asset detail.</returns>
+        </member>
+        <member name="M:Binance.Spot.Wallet.UserAsset(System.String,System.String,System.Nullable{System.Int64})">
+            <summary>
+            Get user assets, just for positive data.<para />
+            Weight(IP): 5.
+            </summary>
+            <param name="asset">If asset is blank, then query all positive assets user have.</param>
+            <param name="needBtcValuation"></param>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>User assets.</returns>
+        </member>
+        <member name="M:Binance.Spot.Wallet.GetApiKeyPermission(System.Nullable{System.Int64})">
+            <summary>
+            Weight(IP): 1.
+            </summary>
+            <param name="recvWindow">The value cannot be greater than 60000.</param>
+            <returns>API Key permissions.</returns>
+        </member>
+    </members>
+</doc>

@@ -84,3 +84,15 @@ C:\Users\hp\source\repos\BinanceTradingSimulator\BinanceTradingSimulator\bin\it\
 C:\Users\hp\source\repos\BinanceTradingSimulator\BinanceTradingSimulator\obj\Debug\BinanceTradingSimulator.csproj.CopyComplete
 C:\Users\hp\source\repos\BinanceTradingSimulator\BinanceTradingSimulator\obj\Debug\BinanceTradingSimulator.dll
 C:\Users\hp\source\repos\BinanceTradingSimulator\BinanceTradingSimulator\obj\Debug\BinanceTradingSimulator.pdb
+C:\Users\hp\source\repos\BinanceTradingSimulator\BinanceTradingSimulator\bin\BinanceAPI.dll
+C:\Users\hp\source\repos\BinanceTradingSimulator\BinanceTradingSimulator\bin\System.Web.Http.dll
+C:\Users\hp\source\repos\BinanceTradingSimulator\BinanceTradingSimulator\bin\System.Net.Http.Formatting.dll
+C:\Users\hp\source\repos\BinanceTradingSimulator\BinanceTradingSimulator\bin\System.Web.Http.WebHost.dll
+C:\Users\hp\source\repos\BinanceTradingSimulator\BinanceTradingSimulator\bin\BinanceAPI.pdb
+C:\Users\hp\source\repos\BinanceTradingSimulator\BinanceTradingSimulator\bin\BinanceAPI.dll.config
+C:\Users\hp\source\repos\BinanceTradingSimulator\BinanceTradingSimulator\bin\System.Web.Http.xml
+C:\Users\hp\source\repos\BinanceTradingSimulator\BinanceTradingSimulator\bin\System.Net.Http.Formatting.xml
+C:\Users\hp\source\repos\BinanceTradingSimulator\BinanceTradingSimulator\bin\System.Web.Http.WebHost.xml
+C:\Users\hp\source\repos\BinanceTradingSimulator\BinanceTradingSimulator\bin\it\System.Web.Http.resources.dll
+C:\Users\hp\source\repos\BinanceTradingSimulator\BinanceTradingSimulator\bin\it\System.Net.Http.Formatting.resources.dll
+C:\Users\hp\source\repos\BinanceTradingSimulator\BinanceTradingSimulator\bin\it\System.Web.Http.WebHost.resources.dll
