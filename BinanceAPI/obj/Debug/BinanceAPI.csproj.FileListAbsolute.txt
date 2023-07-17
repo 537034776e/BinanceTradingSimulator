@@ -96,3 +96,4 @@ C:\Users\hp\source\repos\BinanceTradingSimulator\BinanceAPI\obj\Debug\BinanceAPI
 C:\Users\hp\source\repos\BinanceTradingSimulator\BinanceAPI\obj\Debug\BinanceAPI.csproj.CopyComplete
 C:\Users\hp\source\repos\BinanceTradingSimulator\BinanceAPI\obj\Debug\BinanceAPI.dll
 C:\Users\hp\source\repos\BinanceTradingSimulator\BinanceAPI\obj\Debug\BinanceAPI.pdb
+C:\Users\hp\source\repos\BinanceTradingSimulator\BinanceAPI\obj\Debug\BinanceAPI.csproj.AssemblyReference.cache

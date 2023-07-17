@@ -215,6 +215,7 @@ namespace BinanceTradingSimulator.API
                 if (response.IsSuccessStatusCode)
                 {
                     var json = response.Content.ReadAsStringAsync().Result;
+                    tickerPrices = JsonConvert.DeserializeObject<List<TickerPrice>>(json);
                 }
                 else
                 {
@@ -224,6 +225,43 @@ namespace BinanceTradingSimulator.API
             }
 
             return tickerPrices;
+        }
+        // Metodo per ottenere i valori di candela per il simbolo e intervallo indicato
+        public List<Klines> GetKlines(string symbol, string tick_interval)
+        {
+            var klines = new List<Klines>();
+            using (var client = new HttpClient())
+            {
+                // Imposta l'endpoint e l'header dell'API di Binance
+                var endpoint = "https://api.binance.com/api/v3/klines";
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                // Imposta i parametri necessari per l'autenticazione
+                var apiKey = "your-api-key";
+                var secretKey = "your-secret-key";
+                var timestamp = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+                var queryString = $"timestamp={timestamp}";
+                var signature = CalculateSignature(queryString, secretKey);
+
+                // Aggiungi l'autenticazione all'header
+                client.DefaultRequestHeaders.Add("X-MBX-APIKEY", apiKey);
+
+                // Esegui la chiamata HTTP GET per ottenere la risposta alla richiesta HTTP
+                var response = client.GetAsync($"{endpoint}?symbol={symbol}&interval={tick_interval}&signature={signature}").Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    var json = response.Content.ReadAsStringAsync().Result;
+                    klines = JsonConvert.DeserializeObject<List<Klines>>(json);
+                }
+                else
+                {
+                    // Gestisci l'errore della chiamata API
+                    Console.WriteLine($"Errore nella chiamata API: {response.StatusCode} - {response.ReasonPhrase}");
+                }
+            }
+
+            return klines;
         }
     }
     }
