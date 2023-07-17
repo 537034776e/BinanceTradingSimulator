@@ -1,4 +1,4 @@
-﻿using BinanceTradingSimulator.Models;
+﻿using BinanceAPI.Models;
 using System.Web.Mvc;
 using BinanceTradingSimulator.API;
 using System.Collections.Generic;
@@ -37,6 +37,19 @@ namespace BinanceTradingSimulator.Controllers
         {
             model.rispostaOrdine=binanceAPI.PlaceOrderOnTestnet("BTCUSDT", 2,20000,"SELL","MARKET");
             return View("TestnetOrderView", model.rispostaOrdine);
+        }
+
+        // Azione che mostra la risposta al ping verso le API Binance
+        public ActionResult BinancePingAPI()
+        {
+            model.rispostaPing = binanceAPI.PingAPI();
+            return View("BinancePingAPI", model.rispostaPing);
+        }
+        // Azione che mostra che mostra il ticker price 24hr del simbolo selezionato
+        public ActionResult TickerPrice24hr()
+        {
+            model.TickerPriceList = binanceAPI.GetTickerPrice24hr("BTCUSDT");
+            return View("TickerPrice24hr", model.TickerPriceList);
         }
 
     }

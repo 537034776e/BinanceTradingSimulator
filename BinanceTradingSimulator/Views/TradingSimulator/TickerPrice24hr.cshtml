@@ -1,0 +1,31 @@
+﻿@using BinanceAPI.Models
+@model List<TickerPrice>
+@{
+    ViewBag.Title = "TickerPrice24hr";
+}
+
+<h2>Valori ticker per il simbolo</h2>
+
+@if (Model.Count() == 0)
+{
+    <p>non ci sono valori</p>
+}
+else
+{
+    <table>
+        <tr>
+            <th>Simbolo</th>
+            <th>Variazione</th>
+            <th>Ultimo prezzo</th>
+        </tr>
+        @foreach (var ticker in Model)
+        {
+            <tr>
+                <td>@ticker.symbol</td>
+                <td>@ticker.priceChangePercent</td>
+                <td>@ticker.lastPrice</td>
+            </tr>
+        }
+    </table>
+}
+

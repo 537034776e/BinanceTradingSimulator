@@ -138,6 +138,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\TickerPrice.cs" />
     <Compile Include="Models\TradingSimulatorModel.cs" />
     <Compile Include="Models\Transaction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

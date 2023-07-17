@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace BinanceTradingSimulator.Models
+namespace BinanceAPI.Models
 {
     public class Transaction
     {

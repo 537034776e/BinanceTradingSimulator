@@ -162,6 +162,8 @@
     <Content Include="Views\TradingSimulator\OrdersView.cshtml" />
     <Content Include="Views\TradingSimulator\TransactionsView.cshtml" />
     <Content Include="Views\TradingSimulator\TestnetOrderView.cshtml" />
+    <Content Include="Views\TradingSimulator\BinancePingAPI.cshtml" />
+    <Content Include="Views\TradingSimulator\TickerPrice24hr.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

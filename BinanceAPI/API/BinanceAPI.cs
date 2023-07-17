@@ -6,7 +6,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using Newtonsoft.Json;
-using BinanceTradingSimulator.Models;
+using BinanceAPI.Models;
 
 namespace BinanceTradingSimulator.API
 {
@@ -149,6 +149,81 @@ namespace BinanceTradingSimulator.API
             var hmacsha256 = new System.Security.Cryptography.HMACSHA256(Encoding.UTF8.GetBytes(secretKey));
             var signatureBytes = hmacsha256.ComputeHash(Encoding.UTF8.GetBytes(queryString));
             return BitConverter.ToString(signatureBytes).Replace("-", "").ToLower();
+        }
+
+        // Metodo per testare la connettività all'API di Binance
+        public bool PingAPI()
+        {
+
+            using (var client = new HttpClient())
+            {
+                // Imposta l'endpoint e l'header dell'API di Binance
+                var endpoint = "https://api.binance.com/api/v3/ping";
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                // Imposta i parametri necessari per l'autenticazione
+                var apiKey = "your-api-key";
+                var secretKey = "your-secret-key";
+                var timestamp = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+                var queryString = $"timestamp={timestamp}";
+                var signature = CalculateSignature(queryString, secretKey);
+
+                // Aggiungi l'autenticazione all'header
+                client.DefaultRequestHeaders.Add("X-MBX-APIKEY", apiKey);
+
+                // Esegui la chiamata HTTP GET per ottenere la risposta alla richiesta HTTP
+                var response = client.GetAsync($"{endpoint}?{queryString}&signature={signature}").Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    var json = response.Content.ReadAsStringAsync().Result;
+                    return true;
+                 }
+                else
+                {
+                    // Gestisci l'errore della chiamata API
+                    Console.WriteLine($"Errore nella chiamata API: {response.StatusCode} - {response.ReasonPhrase}");
+                }
+            }
+
+            return false;
+        }
+        
+        // Metodo per ottenere il valore della valuta nelle ultime 24h
+        public List<TickerPrice> GetTickerPrice24hr(string symbol)
+        {
+            var tickerPrices =new List<TickerPrice>();
+            using (var client = new HttpClient())
+            {
+                // Imposta l'endpoint e l'header dell'API di Binance
+                var endpoint = "https://api.binance.com/api/v3/ticker/24hr";
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                // Imposta i parametri necessari per l'autenticazione
+                var apiKey = "your-api-key";
+                var secretKey = "your-secret-key";
+                var timestamp = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+                var queryString = $"timestamp={timestamp}";
+                var signature = CalculateSignature(queryString, secretKey);
+
+                // Aggiungi l'autenticazione all'header
+                client.DefaultRequestHeaders.Add("X-MBX-APIKEY", apiKey);
+
+                // Esegui la chiamata HTTP GET per ottenere la risposta alla richiesta HTTP
+                var response = client.GetAsync($"{endpoint}?symbol={symbol}&{queryString}&signature={signature}").Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    var json = response.Content.ReadAsStringAsync().Result;
+                }
+                else
+                {
+                    // Gestisci l'errore della chiamata API
+                    Console.WriteLine($"Errore nella chiamata API: {response.StatusCode} - {response.ReasonPhrase}");
+                }
+            }
+
+            return tickerPrices;
         }
     }
     }
