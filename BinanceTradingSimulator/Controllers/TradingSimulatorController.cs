@@ -37,7 +37,14 @@ namespace BinanceTradingSimulator.Controllers
         public ActionResult PlaceTestnetOrder()
         {
             model.rispostaOrdine=binanceAPI.PlaceOrderOnTestnet("BTCUSDT", 2,20000,"SELL","MARKET");
-            return View("TestnetOrderView", model.rispostaOrdine);
+            return View("PlaceTestnetOrder", model.rispostaOrdine);
+        }
+
+        // Azione che mostra l'ordine sulla Testnet Binance
+        public ActionResult PlaceOrder()
+        {
+            model.rispostaOrdine = binanceAPI.PlaceOrder("BTCUSDT", 2, 20000, "SELL", "MARKET");
+            return View("PlaceOrder", model.rispostaOrdine);
         }
 
         // Azione che mostra la risposta al ping verso le API Binance
