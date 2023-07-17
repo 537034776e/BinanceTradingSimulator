@@ -46,18 +46,19 @@ namespace BinanceTradingSimulator.Controllers
             model.rispostaPing = binanceAPI.PingAPI();
             return View("BinancePingAPI", model.rispostaPing);
         }
+
         // Azione che mostra che mostra il ticker price 24hr del simbolo selezionato
         public ActionResult TickerPrice24hr()
         {
             model.TickerPriceList = binanceAPI.GetTickerPrice24hr("BTCUSDT");
             return View("TickerPrice24hr", model.TickerPriceList);
         }
+
         // Azione che mostra i valori di candela per il simbolo nell'intervallo
         public ActionResult KlinesValues()
         {
             model.Klines = binanceAPI.GetKlines("BTCUSDT","1h");
             return View("KlinesValues", model.Klines);
         }
-
     }
 }

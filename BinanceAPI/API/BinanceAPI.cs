@@ -17,6 +17,7 @@ namespace BinanceTradingSimulator.API
         string secretKey = "your-secret-key";
         string endpoint = "https://api.binance.com/api/v3/";
         string endpointTest = "https://testnet.binance.vision/api/v3/";
+
         // Metodo per ottenere gli ordini dalle API di Binance
         public List<Order> GetOrdersFromAPI()
         {
@@ -137,15 +138,11 @@ namespace BinanceTradingSimulator.API
                     return false;
                 }
             }
-
-
-
         }
        
         // Metodo per testare la connettività all'API di Binance
         public bool PingAPI()
         {
-
             using (var client = new HttpClient())
             {
                 // Imposta l'endpoint e l'header dell'API di Binance
@@ -167,7 +164,7 @@ namespace BinanceTradingSimulator.API
                 {
                     var json = response.Content.ReadAsStringAsync().Result;
                     return true;
-                 }
+                }
                 else
                 {
                     // Gestisci l'errore della chiamata API
@@ -213,6 +210,7 @@ namespace BinanceTradingSimulator.API
 
             return tickerPrices;
         }
+
         // Metodo per ottenere i valori di candela per il simbolo e intervallo indicato
         public List<Klines> GetKlines(string symbol, string tick_interval)
         {
@@ -248,6 +246,7 @@ namespace BinanceTradingSimulator.API
 
             return klines;
         }
+
         // Metodo per calcolare la firma dell'autenticazione
         private string CalculateSignature(string queryString, string secretKey)
         {
