@@ -15,7 +15,8 @@ Actually, the project is under development, so you'll not find all fundamental o
 + PlaceOrderOnTestnet: make an order on the Binance Testnet to simulate a trading operation
 + PingAPI: make a ping request to Binance API 
 + GetTickerPrice24hr: get the ticker information for the specified symbol
++ GetKlinesValues: get the candlestick information for the specified symbol
 
 ## Architecture
 
-Binance Trading Simulator is based on an MVC pattern, that implements Binance API through HTTP requests to communicate with the trading platform ad execute several operations. Written in C#, the application uses .NET Framework 4.8 and HTML/CSS (with Bootstrap integration) for the View structure.
+Binance Trading Simulator is based on an MVC pattern, that implements Binance API through HTTP requests to communicate with the trading platform and execute several operations. Written in C#, the application uses .NET Framework 4.8 and HTML/CSS (with Bootstrap integration) for the View structure.
