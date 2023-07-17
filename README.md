@@ -13,6 +13,7 @@ Actually, the project is under development, so you'll not find all fundamental o
 + GetOrdersFromAPI: get the list of all orders made with the account
 + GetTransactionsFromAPI: get the list of all transaction for a specific account
 + PlaceOrderOnTestnet: make an order on the Binance Testnet to simulate a trading operation
++ PlaceOrder: make an order on the Binance platform to make a trading operation
 + PingAPI: make a ping request to Binance API 
 + GetTickerPrice24hr: get the ticker information for the specified symbol
 + GetKlinesValues: get the candlestick information for the specified symbol
