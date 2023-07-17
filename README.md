@@ -15,6 +15,7 @@ Actually, the project is under development, so you'll not find all fundamental o
 + PlaceOrderOnTestnet: make an order on the Binance Testnet to simulate a trading operation
 + PingAPI: make a ping request to Binance API 
 + GetTickerPrice24hr: get the ticker information for the specified symbol
++ GetKlinesValues: get the candlestick information for the specified symbol
 
 ## Architecture
 
