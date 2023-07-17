@@ -12,134 +12,32 @@ namespace BinanceTradingSimulator.API
 {
     public class BinanceAPI
     {
+        #region Variabili
+        
         // Imposta i valori delle chiavi per l'API e gli endpoint
         string apiKey = "your-api-key";
         string secretKey = "your-secret-key";
+        string apiKeyTestnet = "your-api-key";
+        string secretKeyTestnet = "your-secret-key";
         string endpoint = "https://api.binance.com/api/v3/";
         string endpointTest = "https://testnet.binance.vision/api/v3/";
 
-        // Metodo per ottenere gli ordini dalle API di Binance
-        public List<Order> GetOrdersFromAPI()
+        #endregion
+
+        #region Autenticazione
+
+        // Metodo per calcolare la firma dell'autenticazione
+        private string CalculateSignature(string queryString, string secretKey)
         {
-            var orders = new List<Order>();
-
-            using (var client = new HttpClient())
-            {
-                // Imposta l'endpoint e l'header dell'API di Binance
-                endpoint = endpoint + "openOrders";
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                // Imposta i parametri necessari per l'autenticazione         
-                var timestamp = DateTimeOffset.Now.ToUnixTimeMilliseconds();
-                var queryString = $"timestamp={timestamp}";
-                var signature = CalculateSignature(queryString, secretKey);
-
-                // Aggiungi l'autenticazione all'header
-                client.DefaultRequestHeaders.Add("X-MBX-APIKEY", apiKey);
-
-                // Esegui la chiamata HTTP GET per ottenere gli ordini
-                var response = client.GetAsync($"{endpoint}").Result;
-                if (response.IsSuccessStatusCode)
-                {
-                    var json = response.Content.ReadAsStringAsync().Result;
-                    orders = JsonConvert.DeserializeObject<List<Order>>(json);
-                }
-                else
-                {
-                    // Gestisci l'errore della chiamata API
-                    Console.WriteLine($"Errore nella chiamata API: {response.StatusCode} - {response.ReasonPhrase}");
-                }
-            }
-
-            return orders;
+            var hmacsha256 = new System.Security.Cryptography.HMACSHA256(Encoding.UTF8.GetBytes(secretKey));
+            var signatureBytes = hmacsha256.ComputeHash(Encoding.UTF8.GetBytes(queryString));
+            return BitConverter.ToString(signatureBytes).Replace("-", "").ToLower();
         }
 
-        // Metodo per ottenere le transazioni dalle API di Binance
-        public List<Transaction> GetTransactionsFromAPI()
-        {
-            var transactions = new List<Transaction>();
+        #endregion
 
-            using (var client = new HttpClient())
-            {
-                // Imposta l'endpoint e l'header dell'API di Binance
-                endpoint = endpoint + "myTrades";
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                // Imposta i parametri necessari per l'autenticazione
-                var timestamp = DateTimeOffset.Now.ToUnixTimeMilliseconds();
-                var queryString = $"timestamp={timestamp}";
-                var signature = CalculateSignature(queryString, secretKey);
-
-                // Aggiungi l'autenticazione all'header
-                client.DefaultRequestHeaders.Add("X-MBX-APIKEY", apiKey);
-
-                // Esegui la chiamata HTTP GET per ottenere le transazioni
-                var response = client.GetAsync($"{endpoint}").Result;
-                if (response.IsSuccessStatusCode)
-                {
-                    var json = response.Content.ReadAsStringAsync().Result;
-                    transactions = JsonConvert.DeserializeObject<List<Transaction>>(json);
-                }
-                else
-                {
-                    // Gestisci l'errore della chiamata API
-                    Console.WriteLine($"Errore nella chiamata API: {response.StatusCode} - {response.ReasonPhrase}");
-                }
-            }
-
-            return transactions;
-        }
-
-        // Metodo per eseguire un ordine sulla Testnet di Binance
-        public bool PlaceOrderOnTestnet(string symbol, decimal quantity, decimal price, string side, string type)
-        {
-            using (var client = new HttpClient())
-            {
-                // Imposta l'endpoint e l'header dell'API di Binance Testnet
-                endpointTest = endpointTest + "order/test";
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                // Imposta i parametri dell'ordine
-                var timestamp = DateTimeOffset.Now.ToUnixTimeMilliseconds();
-                var queryString = $"symbol={symbol}&side={side}&type={type}&quantity={quantity}&price={price}&timestamp={timestamp}";
-                var signature = CalculateSignature(queryString, secretKey);
-
-                // Aggiungi l'autenticazione all'header
-                client.DefaultRequestHeaders.Add("X-MBX-APIKEY", apiKey);
-
-                // Esegui la chiamata HTTP POST per eseguire l'ordine
-                var content = new StringContent($"symbol={symbol}&side={side}&type={type}&quantity={quantity}&price={price}&timestamp={timestamp}&signature={signature}", Encoding.UTF8, "application/x-www-form-urlencoded");
-                var response = client.PostAsync(endpoint, content).Result;
-                if (response.IsSuccessStatusCode)
-                {
-                    var json = response.Content.ReadAsStringAsync().Result;
-                    var result = JsonConvert.DeserializeObject<dynamic>(json);
-
-                    // Verifica il risultato dell'ordine
-                    if (result.status == "FILLED")
-                    {
-                        // L'ordine è stato eseguito con successo
-                        return true;
-                    }
-                    else
-                    {
-                        // L'ordine non è stato eseguito correttamente
-                        Console.WriteLine($"Errore nell'esecuzione dell'ordine: {result.msg}");
-                        return false;
-                    }
-                }
-                else
-                {
-                    // Gestisci l'errore della chiamata API
-                    Console.WriteLine($"Errore nella chiamata API: {response.StatusCode} - {response.ReasonPhrase}");
-                    return false;
-                }
-            }
-        }
-       
+        #region Metodi senza credenziali API
+        
         // Metodo per testare la connettività all'API di Binance
         public bool PingAPI()
         {
@@ -171,14 +69,13 @@ namespace BinanceTradingSimulator.API
                     Console.WriteLine($"Errore nella chiamata API: {response.StatusCode} - {response.ReasonPhrase}");
                 }
             }
-
             return false;
         }
-        
+
         // Metodo per ottenere il valore della valuta nelle ultime 24h
         public List<TickerPrice> GetTickerPrice24hr(string symbol)
         {
-            var tickerPrices =new List<TickerPrice>();
+            var tickerPrices = new List<TickerPrice>();
             using (var client = new HttpClient())
             {
                 // Imposta l'endpoint e l'header dell'API di Binance
@@ -247,13 +144,132 @@ namespace BinanceTradingSimulator.API
             return klines;
         }
 
-        // Metodo per calcolare la firma dell'autenticazione
-        private string CalculateSignature(string queryString, string secretKey)
+        #endregion
+
+        #region Metodi con credenziali API
+        
+        // Metodo per ottenere gli ordini dalle API di Binance
+        public List<Order> GetOrdersFromAPI()
         {
-            var hmacsha256 = new System.Security.Cryptography.HMACSHA256(Encoding.UTF8.GetBytes(secretKey));
-            var signatureBytes = hmacsha256.ComputeHash(Encoding.UTF8.GetBytes(queryString));
-            return BitConverter.ToString(signatureBytes).Replace("-", "").ToLower();
+            var orders = new List<Order>();
+
+            using (var client = new HttpClient())
+            {
+                // Imposta l'endpoint e l'header dell'API di Binance
+                endpoint = endpoint + "openOrders";
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                // Imposta i parametri necessari per l'autenticazione         
+                var timestamp = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+                var queryString = $"timestamp={timestamp}";
+                var signature = CalculateSignature(queryString, secretKey);
+
+                // Aggiungi l'autenticazione all'header
+                client.DefaultRequestHeaders.Add("X-MBX-APIKEY", apiKey);
+
+                // Esegui la chiamata HTTP GET per ottenere gli ordini
+                var response = client.GetAsync($"{endpoint}?signature={signature}").Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    var json = response.Content.ReadAsStringAsync().Result;
+                    orders = JsonConvert.DeserializeObject<List<Order>>(json);
+                }
+                else
+                {
+                    // Gestisci l'errore della chiamata API
+                    Console.WriteLine($"Errore nella chiamata API: {response.StatusCode} - {response.ReasonPhrase}");
+                }
+            }
+
+            return orders;
         }
 
+        // Metodo per eseguire un ordine sulla Testnet di Binance
+        public bool PlaceOrderOnTestnet(string symbol, decimal quantity, decimal price, string side, string type)
+        {
+            using (var client = new HttpClient())
+            {
+                // Imposta l'endpoint e l'header dell'API di Binance Testnet
+                endpointTest = endpointTest + "order/test";
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                // Imposta i parametri dell'ordine
+                var timestamp = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+                var queryString = $"symbol={symbol}&side={side}&type={type}&quantity={quantity}&price={price}&timestamp={timestamp}";
+                var signature = CalculateSignature(queryString, secretKeyTestnet);
+
+                // Aggiungi l'autenticazione all'header
+                client.DefaultRequestHeaders.Add("X-MBX-APIKEY", apiKeyTestnet);
+
+                // Esegui la chiamata HTTP POST per eseguire l'ordine
+                var content = new StringContent($"symbol={symbol}&side={side}&type={type}&quantity={quantity}&price={price}&timestamp={timestamp}&signature={signature}", Encoding.UTF8, "application/x-www-form-urlencoded");
+                var response = client.PostAsync(endpoint, content).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    var json = response.Content.ReadAsStringAsync().Result;
+                    var result = JsonConvert.DeserializeObject<dynamic>(json);
+
+                    // Verifica il risultato dell'ordine
+                    if (result.status == "FILLED")
+                    {
+                        // L'ordine è stato eseguito con successo
+                        return true;
+                    }
+                    else
+                    {
+                        // L'ordine non è stato eseguito correttamente
+                        Console.WriteLine($"Errore nell'esecuzione dell'ordine: {result.msg}");
+                        return false;
+                    }
+                }
+                else
+                {
+                    // Gestisci l'errore della chiamata API
+                    Console.WriteLine($"Errore nella chiamata API: {response.StatusCode} - {response.ReasonPhrase}");
+                    return false;
+                }
+            }
+        }
+
+        // Metodo per ottenere le transazioni dalle API di Binance
+        public List<Transaction> GetTransactionsFromAPI()
+        {
+            var transactions = new List<Transaction>();
+
+            using (var client = new HttpClient())
+            {
+                // Imposta l'endpoint e l'header dell'API di Binance
+                endpoint = endpoint + "myTrades";
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                // Imposta i parametri necessari per l'autenticazione
+                var timestamp = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+                var queryString = $"timestamp={timestamp}";
+                var signature = CalculateSignature(queryString, secretKey);
+
+                // Aggiungi l'autenticazione all'header
+                client.DefaultRequestHeaders.Add("X-MBX-APIKEY", apiKey);
+
+                // Esegui la chiamata HTTP GET per ottenere le transazioni
+                var response = client.GetAsync($"{endpoint}?signature={signature}").Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    var json = response.Content.ReadAsStringAsync().Result;
+                    transactions = JsonConvert.DeserializeObject<List<Transaction>>(json);
+                }
+                else
+                {
+                    // Gestisci l'errore della chiamata API
+                    Console.WriteLine($"Errore nella chiamata API: {response.StatusCode} - {response.ReasonPhrase}");
+                }
+            }
+
+            return transactions;
+        }
+
+        #endregion
     }
 }
