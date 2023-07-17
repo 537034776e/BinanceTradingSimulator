@@ -19,4 +19,4 @@ Actually, the project is under development, so you'll not find all fundamental o
 
 ## Architecture
 
-Binance Trading Simulator is based on an MVC pattern, that implements Binance API through HTTP requests to communicate with the trading platform ad execute several operations. Written in C#, the application uses .NET Framework 4.8 and HTML/CSS (with Bootstrap integration) for the View structure.
+Binance Trading Simulator is based on an MVC pattern, that implements Binance API through HTTP requests to communicate with the trading platform and execute several operations. Written in C#, the application uses .NET Framework 4.8 and HTML/CSS (with Bootstrap integration) for the View structure.
