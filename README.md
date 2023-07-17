@@ -8,11 +8,13 @@ To make application working for operations, you simply need to set your Binance 
 
 ## Methods
 
-Actually, the project is under development, so you'll not find all fundamental operations for trading or visualization. Current version of the solution include this methods:
+Actually, the project is under development, so you'll not find all fundamental operations for trading or visualization. Current version of the solution include this methods on _**BinanceAPI.cs**_ class for API solution:
 
 + GetOrdersFromAPI: get the list of all orders made with the account
 + GetTransactionsFromAPI: get the list of all transaction for a specific account
 + PlaceOrderOnTestnet: make an order on the Binance Testnet to simulate a trading operation
++ PingAPI: make a ping request to Binance API 
++ GetTickerPrice24hr: get the ticker information for the specified symbol
 
 ## Architecture
 
