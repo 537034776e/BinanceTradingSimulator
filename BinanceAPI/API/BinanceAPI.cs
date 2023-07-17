@@ -12,9 +12,11 @@ namespace BinanceTradingSimulator.API
 {
     public class BinanceAPI
     {
-        // Imposta i valori delle chiavi per l'API
+        // Imposta i valori delle chiavi per l'API e gli endpoint
         string apiKey = "your-api-key";
         string secretKey = "your-secret-key";
+        string endpoint = "https://api.binance.com/api/v3/";
+        string endpointTest = "https://testnet.binance.vision/api/v3/";
         // Metodo per ottenere gli ordini dalle API di Binance
         public List<Order> GetOrdersFromAPI()
         {
@@ -23,7 +25,7 @@ namespace BinanceTradingSimulator.API
             using (var client = new HttpClient())
             {
                 // Imposta l'endpoint e l'header dell'API di Binance
-                var endpoint = "https://api.binance.com/api/v3/openOrders";
+                endpoint = endpoint + "openOrders";
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -60,7 +62,7 @@ namespace BinanceTradingSimulator.API
             using (var client = new HttpClient())
             {
                 // Imposta l'endpoint e l'header dell'API di Binance
-                var endpoint = "https://api.binance.com/api/v3/myTrades";
+                endpoint = endpoint + "myTrades";
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -95,7 +97,7 @@ namespace BinanceTradingSimulator.API
             using (var client = new HttpClient())
             {
                 // Imposta l'endpoint e l'header dell'API di Binance Testnet
-                var endpoint = "https://testnet.binance.vision/api/v3/order/test";
+                endpointTest = endpointTest + "order/test";
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -147,7 +149,7 @@ namespace BinanceTradingSimulator.API
             using (var client = new HttpClient())
             {
                 // Imposta l'endpoint e l'header dell'API di Binance
-                var endpoint = "https://api.binance.com/api/v3/ping";
+                endpoint = endpoint + "ping";
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -183,7 +185,7 @@ namespace BinanceTradingSimulator.API
             using (var client = new HttpClient())
             {
                 // Imposta l'endpoint e l'header dell'API di Binance
-                var endpoint = "https://api.binance.com/api/v3/ticker/24hr";
+                endpoint = endpoint + "ticker/24hr";
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -218,7 +220,7 @@ namespace BinanceTradingSimulator.API
             using (var client = new HttpClient())
             {
                 // Imposta l'endpoint e l'header dell'API di Binance
-                var endpoint = "https://api.binance.com/api/v3/klines";
+                endpoint = endpoint + "klines";
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
