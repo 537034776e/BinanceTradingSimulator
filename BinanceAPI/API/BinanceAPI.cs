@@ -38,7 +38,7 @@ namespace BinanceTradingSimulator.API
                 client.DefaultRequestHeaders.Add("X-MBX-APIKEY", apiKey);
 
                 // Esegui la chiamata HTTP GET per ottenere gli ordini
-                var response = client.GetAsync($"{endpoint}?{queryString}&signature={signature}").Result;
+                var response = client.GetAsync($"{endpoint}").Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var json = response.Content.ReadAsStringAsync().Result;
@@ -75,7 +75,7 @@ namespace BinanceTradingSimulator.API
                 client.DefaultRequestHeaders.Add("X-MBX-APIKEY", apiKey);
 
                 // Esegui la chiamata HTTP GET per ottenere le transazioni
-                var response = client.GetAsync($"{endpoint}?{queryString}&signature={signature}").Result;
+                var response = client.GetAsync($"{endpoint}").Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var json = response.Content.ReadAsStringAsync().Result;
@@ -162,7 +162,7 @@ namespace BinanceTradingSimulator.API
                 client.DefaultRequestHeaders.Add("X-MBX-APIKEY", apiKey);
 
                 // Esegui la chiamata HTTP GET per ottenere la risposta alla richiesta HTTP
-                var response = client.GetAsync($"{endpoint}?{queryString}&signature={signature}").Result;
+                var response = client.GetAsync($"{endpoint}").Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var json = response.Content.ReadAsStringAsync().Result;
@@ -198,7 +198,7 @@ namespace BinanceTradingSimulator.API
                 client.DefaultRequestHeaders.Add("X-MBX-APIKEY", apiKey);
 
                 // Esegui la chiamata HTTP GET per ottenere la risposta alla richiesta HTTP
-                var response = client.GetAsync($"{endpoint}?symbol={symbol}&{queryString}&signature={signature}").Result;
+                var response = client.GetAsync($"{endpoint}?symbol={symbol}").Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var json = response.Content.ReadAsStringAsync().Result;
@@ -233,7 +233,7 @@ namespace BinanceTradingSimulator.API
                 client.DefaultRequestHeaders.Add("X-MBX-APIKEY", apiKey);
 
                 // Esegui la chiamata HTTP GET per ottenere la risposta alla richiesta HTTP
-                var response = client.GetAsync($"{endpoint}?symbol={symbol}&interval={tick_interval}&signature={signature}").Result;
+                var response = client.GetAsync($"{endpoint}?symbol={symbol}&interval={tick_interval}").Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var json = response.Content.ReadAsStringAsync().Result;
