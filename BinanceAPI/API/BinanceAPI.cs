@@ -12,7 +12,9 @@ namespace BinanceTradingSimulator.API
 {
     public class BinanceAPI
     {
-
+        // Imposta i valori delle chiavi per l'API
+        string apiKey = "your-api-key";
+        string secretKey = "your-secret-key";
         // Metodo per ottenere gli ordini dalle API di Binance
         public List<Order> GetOrdersFromAPI()
         {
@@ -25,9 +27,7 @@ namespace BinanceTradingSimulator.API
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                // Imposta i parametri necessari per l'autenticazione
-                var apiKey = "your-api-key";
-                var secretKey = "your-secret-key";
+                // Imposta i parametri necessari per l'autenticazione         
                 var timestamp = DateTimeOffset.Now.ToUnixTimeMilliseconds();
                 var queryString = $"timestamp={timestamp}";
                 var signature = CalculateSignature(queryString, secretKey);
@@ -65,8 +65,6 @@ namespace BinanceTradingSimulator.API
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
                 // Imposta i parametri necessari per l'autenticazione
-                var apiKey = "your-api-key";
-                var secretKey = "your-secret-key";
                 var timestamp = DateTimeOffset.Now.ToUnixTimeMilliseconds();
                 var queryString = $"timestamp={timestamp}";
                 var signature = CalculateSignature(queryString, secretKey);
@@ -102,8 +100,6 @@ namespace BinanceTradingSimulator.API
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
                 // Imposta i parametri dell'ordine
-                var apiKey = "your-testnet-api-key";
-                var secretKey = "your-testnet-secret-key";
                 var timestamp = DateTimeOffset.Now.ToUnixTimeMilliseconds();
                 var queryString = $"symbol={symbol}&side={side}&type={type}&quantity={quantity}&price={price}&timestamp={timestamp}";
                 var signature = CalculateSignature(queryString, secretKey);
@@ -143,14 +139,7 @@ namespace BinanceTradingSimulator.API
 
 
         }
-        // Metodo per calcolare la firma dell'autenticazione
-        private string CalculateSignature(string queryString, string secretKey)
-        {
-            var hmacsha256 = new System.Security.Cryptography.HMACSHA256(Encoding.UTF8.GetBytes(secretKey));
-            var signatureBytes = hmacsha256.ComputeHash(Encoding.UTF8.GetBytes(queryString));
-            return BitConverter.ToString(signatureBytes).Replace("-", "").ToLower();
-        }
-
+       
         // Metodo per testare la connettività all'API di Binance
         public bool PingAPI()
         {
@@ -163,8 +152,6 @@ namespace BinanceTradingSimulator.API
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
                 // Imposta i parametri necessari per l'autenticazione
-                var apiKey = "your-api-key";
-                var secretKey = "your-secret-key";
                 var timestamp = DateTimeOffset.Now.ToUnixTimeMilliseconds();
                 var queryString = $"timestamp={timestamp}";
                 var signature = CalculateSignature(queryString, secretKey);
@@ -201,8 +188,6 @@ namespace BinanceTradingSimulator.API
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
                 // Imposta i parametri necessari per l'autenticazione
-                var apiKey = "your-api-key";
-                var secretKey = "your-secret-key";
                 var timestamp = DateTimeOffset.Now.ToUnixTimeMilliseconds();
                 var queryString = $"timestamp={timestamp}";
                 var signature = CalculateSignature(queryString, secretKey);
@@ -238,8 +223,6 @@ namespace BinanceTradingSimulator.API
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
                 // Imposta i parametri necessari per l'autenticazione
-                var apiKey = "your-api-key";
-                var secretKey = "your-secret-key";
                 var timestamp = DateTimeOffset.Now.ToUnixTimeMilliseconds();
                 var queryString = $"timestamp={timestamp}";
                 var signature = CalculateSignature(queryString, secretKey);
@@ -263,5 +246,13 @@ namespace BinanceTradingSimulator.API
 
             return klines;
         }
+        // Metodo per calcolare la firma dell'autenticazione
+        private string CalculateSignature(string queryString, string secretKey)
+        {
+            var hmacsha256 = new System.Security.Cryptography.HMACSHA256(Encoding.UTF8.GetBytes(secretKey));
+            var signatureBytes = hmacsha256.ComputeHash(Encoding.UTF8.GetBytes(queryString));
+            return BitConverter.ToString(signatureBytes).Replace("-", "").ToLower();
+        }
+
     }
-    }
+}

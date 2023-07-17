@@ -11,6 +11,7 @@ namespace BinanceTradingSimulator.Controllers
         public TradingSimulatorModel model;
         private API.BinanceAPI binanceAPI = new API.BinanceAPI();
 
+        // Dichiarazione del controller generico
         public TradingSimulatorController()
         {
             model = new TradingSimulatorModel();
