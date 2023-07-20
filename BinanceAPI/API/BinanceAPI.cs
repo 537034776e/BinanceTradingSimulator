@@ -37,7 +37,7 @@ namespace BinanceTradingSimulator.API
         #endregion
 
         #region Metodi senza credenziali API
-        
+
         // Metodo per testare la connettività all'API di Binance
         public bool PingAPI()
         {
@@ -65,6 +65,36 @@ namespace BinanceTradingSimulator.API
                 }
             }
             return false;
+        }
+
+        // Metodo per ottenere i valori di candela per il simbolo e intervallo indicato
+        public List<Klines> GetKlines(string symbol, string tick_interval)
+        {
+            var klines = new List<Klines>();
+            using (var client = new HttpClient())
+            {
+                // Imposta l'endpoint e l'header dell'API di Binance
+                endpoint = endpoint + "klines";
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                // Aggiungi l'autenticazione all'header
+                client.DefaultRequestHeaders.Add("X-MBX-APIKEY", apiKey);
+
+                // Esegui la chiamata HTTP GET per ottenere la risposta alla richiesta HTTP
+                var response = client.GetAsync($"{endpoint}?symbol={symbol}&interval={tick_interval}").Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    var json = response.Content.ReadAsStringAsync().Result;
+                    klines = JsonConvert.DeserializeObject<List<Klines>>(json);
+                }
+                else
+                {
+                    // Gestisci l'errore della chiamata API
+                    Console.WriteLine($"Errore nella chiamata API: {response.StatusCode} - {response.ReasonPhrase}");
+                }
+            }
+            return klines;
         }
 
         // Metodo per ottenere il valore della valuta nelle ultime 24h
@@ -98,40 +128,10 @@ namespace BinanceTradingSimulator.API
             return tickerPrices;
         }
 
-        // Metodo per ottenere i valori di candela per il simbolo e intervallo indicato
-        public List<Klines> GetKlines(string symbol, string tick_interval)
-        {
-            var klines = new List<Klines>();
-            using (var client = new HttpClient())
-            {
-                // Imposta l'endpoint e l'header dell'API di Binance
-                endpoint = endpoint + "klines";
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                // Aggiungi l'autenticazione all'header
-                client.DefaultRequestHeaders.Add("X-MBX-APIKEY", apiKey);
-
-                // Esegui la chiamata HTTP GET per ottenere la risposta alla richiesta HTTP
-                var response = client.GetAsync($"{endpoint}?symbol={symbol}&interval={tick_interval}").Result;
-                if (response.IsSuccessStatusCode)
-                {
-                    var json = response.Content.ReadAsStringAsync().Result;
-                    klines = JsonConvert.DeserializeObject<List<Klines>>(json);
-                }
-                else
-                {
-                    // Gestisci l'errore della chiamata API
-                    Console.WriteLine($"Errore nella chiamata API: {response.StatusCode} - {response.ReasonPhrase}");
-                }
-            }
-            return klines;
-        }
-
         #endregion
 
         #region Metodi con credenziali API
-        
+
         // Metodo per ottenere gli ordini dalle API di Binance
         public List<Order> GetOrdersFromAPI()
         {
@@ -217,13 +217,13 @@ namespace BinanceTradingSimulator.API
             }
         }
 
-        // Metodo per eseguire un ordine sulla Testnet di Binance
+        // Metodo per eseguire un ordine su Binance
         public bool PlaceOrder(string symbol, decimal quantity, decimal price, string side, string type)
         {
             using (var client = new HttpClient())
             {
                 // Imposta l'endpoint e l'header dell'API di Binance Testnet
-                endpointTest = endpointTest + "order/test";
+                endpoint = endpoint + "order";
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
